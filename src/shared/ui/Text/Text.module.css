@@ -1,0 +1,9 @@
+.h1 { font-size: var(--fs-h1); line-height: var(--lh-tight); font-weight: 700; }
+.h2 { font-size: var(--fs-h2); line-height: var(--lh-tight); font-weight: 700; }
+.h4 { font-size: var(--fs-h4); line-height: var(--lh-tight); font-weight: 600; }
+
+.body   { font-size: var(--fs-body);    line-height: var(--lh-normal); }
+.bodySm { font-size: var(--fs-body-sm); line-height: var(--lh-normal); }
+.caption{ font-size: var(--fs-caption); line-height: var(--lh-normal); }
+
+.link { color: var(--color-link); text-decoration: underline; }

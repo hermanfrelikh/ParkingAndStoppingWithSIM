@@ -4,7 +4,7 @@
     "target": "ES2023",
     "lib": ["ES2023"],
     "module": "ESNext",
-    "types": [],
+    "types": ["node", "vitest/config"],
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -14,13 +14,19 @@
     "moduleDetection": "force",
     "noEmit": true,
 
-    /* Linting */
+    /* Линтинг */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* Алиасы доступны и в node-конфигах */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts", ".storybook/**/*.ts", ".storybook/**/*.tsx"]
 }

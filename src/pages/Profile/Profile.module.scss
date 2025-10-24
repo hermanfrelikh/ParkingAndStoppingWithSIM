@@ -1,0 +1,46 @@
+.title{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.backButton{
+  border: none;
+  position: absolute;
+  top: 25px;
+  margin-left: 30px;
+}
+
+.profile{
+  &Info{
+  display: flex;
+  justify-content: start;
+  margin-top: 10px;
+
+    &List{
+      list-style: none;
+      display: flex;
+      justify-content: start;
+      flex-direction: column;
+      padding: 0;   
+      margin-left: 20px; 
+      margin-top: 20px;
+    }
+  }
+
+  &Item{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+  }
+
+  &Text{
+    display: flex;
+    flex-direction: column;
+
+  }
+}
+
+.icon{
+  width: 60px;
+}

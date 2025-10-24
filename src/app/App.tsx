@@ -1,8 +1,14 @@
+import { BrowserRouter } from "react-router";
+import { AppRouter } from "./AppRouter";
+
 function App() {
   
   return (
     <>
-      <h1>ParkingAndStoppingWithSIM</h1>
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
+
     </>
   );
 }
