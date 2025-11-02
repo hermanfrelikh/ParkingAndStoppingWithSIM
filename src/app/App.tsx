@@ -1,5 +1,6 @@
 import { BrowserRouter } from "react-router";
 import { AppRouter } from "./AppRouter";
+import { BottomNav } from "@/widgets/BottomNav/BottomNav";
 
 function App() {
   
@@ -7,6 +8,7 @@ function App() {
     <>
     <BrowserRouter>
       <AppRouter />
+      <BottomNav />
     </BrowserRouter>
 
     </>
