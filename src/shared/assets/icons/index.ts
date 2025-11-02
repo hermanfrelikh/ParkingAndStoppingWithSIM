@@ -4,3 +4,6 @@ export { default as EmailIcon } from "./email.svg?react";
 export { default as PasswordIcon } from "./Password.svg?react";
 export { default as PhoneNumberIcon } from "./phone-number.svg?react";
 export { default as SubscriptionIcon } from "./subscription.svg?react";
+export { default as HomeIcon} from "./home.svg?react"
+export { default as ProfileIcon} from "./profile.svg?react"
+export { default as FavoritesIcon} from "./favorites.svg?react"

@@ -1,0 +1,29 @@
+.nav{
+  width: 360px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  position: fixed;
+  bottom: 10px;
+  left: 15px;
+  background-color: white;
+  border-radius: 10px;
+  z-index: 1000;
+
+  &Button{
+    border: none;
+    background-color: white;
+    width: 115px;
+    height: 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &Label{
+    margin-top: 5px;
+  }
+}

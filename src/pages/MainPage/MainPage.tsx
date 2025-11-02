@@ -1,11 +1,26 @@
-import { Text } from "@/shared/ui/Text";
+// src/pages/MainPage.tsx
+import { useState } from 'react';
+import { Map } from '@/shared/ui/Map';
 
+import { ParkingModal } from '@/widgets/ParkingModal';
+import { BottomNav } from '@/widgets/BottomNav/BottomNav';
 
 export function MainPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <>
-      <Text variant="h1">Main</Text>
-      <a href="/profile">Профиль</a> 
+      <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <main style={{ flex: 1, position: 'relative' }}>
+          <Map onMarkerClick={() => setIsModalOpen(true)} />
+        </main>
+        <BottomNav />
+      </div>
+
+      <ParkingModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </>
-  )
+  );
 }

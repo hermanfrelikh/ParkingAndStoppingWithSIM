@@ -48,7 +48,7 @@ export function Profile() {
             if (key === "password") {
               displayValue = "*".repeat(String(value).length);
             } else if (key === "subscription") {
-              displayValue = value ? "active" : "unactive";
+              displayValue = value ? "активна" : "неактивна";
             }
 
             return (
