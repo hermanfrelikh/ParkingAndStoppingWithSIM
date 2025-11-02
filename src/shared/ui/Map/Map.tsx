@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { mockParking } from '@/shared/data/parkingData';
-import { ParkingModal } from '@/widgets/ParkingModal';
 
-interface ParkingProperties {
+export interface ParkingProperties {
   id: number;
   name_obj: string;
   vid: string;
@@ -15,12 +14,14 @@ interface ParkingProperties {
   occupied: string;
 }
 
-export const Map = () => {
+interface MapProps {
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedParking: React.Dispatch<React.SetStateAction<ParkingProperties | null>>;
+}
+
+export const Map = ({ setModalOpen, setSelectedParking }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
-
-  const [selectedParking, setSelectedParking] = useState<ParkingProperties | null>(null);
-  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (!mapContainer.current || mapRef.current) return;
@@ -35,10 +36,9 @@ export const Map = () => {
     mapRef.current = map;
 
     map.on('load', () => {
-      //bbox
       const bounds: [[number, number], [number, number]] = [
-        [37.5415, 55.8320], // юго-западный угол [lng, lat]
-        [37.5462, 55.8375], // северо-восточный угол [lng, lat]
+        [37.5415, 55.8320],
+        [37.5462, 55.8375],
       ];
 
       map.fitBounds(bounds, { padding: 40 });
@@ -100,16 +100,7 @@ export const Map = () => {
         mapRef.current = null;
       }
     };
-  }, []);
+  }, [setModalOpen, setSelectedParking]);
 
-  return (
-    <>
-      <div ref={mapContainer} style={{ width: '100%', height: '100vh' }} />
-      <ParkingModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        data={selectedParking}
-      />
-    </>
-  );
+  return <div ref={mapContainer} style={{ width: '100%', height: '100vh' }} />;
 };
