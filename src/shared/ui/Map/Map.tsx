@@ -1,23 +1,26 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { mockParking } from '@/shared/data/parkingData';
+import { ParkingModal } from '@/widgets/ParkingModal';
 
-export interface MapProps {
-  center?: [number, number];
-  zoom?: number;
-  className?: string;
-  onMarkerClick?: () => void;
+interface ParkingProperties {
+  id: number;
+  name_obj: string;
+  vid: string;
+  name: string | null;
+  material_fence: string | null;
+  name_ao: string;
+  name_raion: string;
+  occupied: string;
 }
 
-export const Map = ({
-  center = [37.6173, 55.7558],
-  zoom = 14,
-  className = '',
-  onMarkerClick,
-}: MapProps) => {
+export const Map = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
+
+  const [selectedParking, setSelectedParking] = useState<ParkingProperties | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (!mapContainer.current || mapRef.current) return;
@@ -25,90 +28,88 @@ export const Map = ({
     const map = new maplibregl.Map({
       container: mapContainer.current,
       style: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
-      center,
-      zoom,
-      // Включены стандартные жесты (по умолчанию true, но явно укажем для ясности)
-      dragPan: true,        // перемещение перетаскиванием
-      scrollZoom: true,     // масштаб колёсиком
-      touchZoomRotate: true, // масштаб и поворот двумя пальцами
-      doubleClickZoom: true,
-      boxZoom: true,
+      center: [37.6173, 55.7558],
+      zoom: 14,
     });
 
     mapRef.current = map;
 
-    // Контролы
-    map.addControl(new maplibregl.NavigationControl({ showCompass: true }), 'top-right');
-    map.addControl(
-      new maplibregl.GeolocateControl({
-        showUserLocation: true,
-        trackUserLocation: false,
-      }),
-      'top-right'
-    );
-
-    // После загрузки — добавляем маркер
     map.on('load', () => {
-      // Источник данных
-      map.addSource('parking', {
+      //bbox
+      const bounds: [[number, number], [number, number]] = [
+        [37.5415, 55.8320], // юго-западный угол [lng, lat]
+        [37.5462, 55.8375], // северо-восточный угол [lng, lat]
+      ];
+
+      map.fitBounds(bounds, { padding: 40 });
+
+      map.addSource('parkings', {
         type: 'geojson',
-        data: {
-          type: 'FeatureCollection',
-          features: [
-            {
-              type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: mockParking.coordinates,
-              },
-              properties: mockParking,
-            },
-          ],
-        },
+        data: mockParking,
       });
 
-      // Слой: синий круг
       map.addLayer({
-        id: 'parking-circle',
-        type: 'circle',
-        source: 'parking',
+        id: 'parking-polygons',
+        type: 'fill',
+        source: 'parkings',
         paint: {
-          'circle-radius': 10,
-          'circle-color': '#1E90FF',
-          'circle-stroke-width': 2,
-          'circle-stroke-color': '#fff',
+          'fill-color': '#1E90FF',
+          'fill-opacity': 0.5,
         },
       });
 
-      // Обработчики
-      map.on('click', 'parking-circle', () => {
-        onMarkerClick?.();
+      map.addLayer({
+        id: 'parking-outlines',
+        type: 'line',
+        source: 'parkings',
+        paint: {
+          'line-color': '#104E8B',
+          'line-width': 2,
+        },
       });
 
-      map.on('mouseenter', 'parking-circle', () => {
+      map.on('click', 'parking-polygons', (e) => {
+        if (!e.features || e.features.length === 0) return;
+        const props = e.features[0].properties as any;
+        if (props) {
+          setSelectedParking({
+            id: Number(props.id),
+            name_obj: props.name_obj || '',
+            vid: props.vid || '',
+            name: props.name || null,
+            material_fence: props.material_fence || null,
+            name_ao: props.name_ao || '',
+            name_raion: props.name_raion || '',
+            occupied: props.occupied || '',
+          });
+          setModalOpen(true);
+        }
+      });
+
+      map.on('mouseenter', 'parking-polygons', () => {
         map.getCanvas().style.cursor = 'pointer';
       });
-
-      map.on('mouseleave', 'parking-circle', () => {
+      map.on('mouseleave', 'parking-polygons', () => {
         map.getCanvas().style.cursor = '';
       });
     });
 
-    // Очистка
     return () => {
       if (mapRef.current) {
         mapRef.current.remove();
         mapRef.current = null;
       }
     };
-    
   }, []);
 
   return (
-    <div
-      ref={mapContainer}
-      className={className}
-      style={{ width: '100%', height: '100%' }}
-    />
+    <>
+      <div ref={mapContainer} style={{ width: '100%', height: '100vh' }} />
+      <ParkingModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        data={selectedParking}
+      />
+    </>
   );
 };
