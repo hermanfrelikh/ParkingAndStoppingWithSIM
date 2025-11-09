@@ -1,4 +1,5 @@
 import { Authorization } from "@/pages/Authorization";
+import { Favorites } from "@/pages/Favorites";
 import { MainPage } from "@/pages/MainPage";
 import { NotFound } from "@/pages/NotFound";
 import { Profile } from "@/pages/Profile";
@@ -10,6 +11,7 @@ export  function AppRouter() {
   return (
     <Routes>
       <Route path="/" element = {<MainPage />} />
+      <Route path="/favorites" element = {<Favorites />} />
       <Route path="/registration" element = {<Registration />} />
       <Route path="/authorization" element = {<Authorization />} />
       <Route path="/profile" element = {<Profile />} />

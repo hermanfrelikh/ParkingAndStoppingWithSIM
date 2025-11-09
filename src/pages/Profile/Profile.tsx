@@ -1,5 +1,4 @@
 import {
-  ArrowBackIcon,
   NameIcon,
   EmailIcon,
   PasswordIcon,
@@ -7,9 +6,8 @@ import {
   SubscriptionIcon,
 } from "@/shared/assets/icons";
 
-import { Text } from "@/shared/ui/Text";
 import style from "./Profile.module.scss";
-import { useNavigate } from "react-router";
+import { Header } from "@/shared/ui/Header";
 
 
 const testUser = {
@@ -29,16 +27,11 @@ const fields = {
 };
 
 export function Profile() {
-  const navigate = useNavigate();
 
   return (
     <>
-        <Text className={style.title} variant="h4">Мой профиль</Text>
-        <button className={style.backButton}>
-          <ArrowBackIcon  onClick={() => navigate(-1)} style={{ width: "30px" }} />
-        </button>
+        <Header title={"Мой профиль"} />
       
-
       <section className={style.profileInfo}>
         <ul className={style.profileInfoList}>
           {Object.entries(testUser).map(([key, value]) => {
@@ -66,6 +59,6 @@ export function Profile() {
           })}
         </ul>
       </section>
-    </>
+      </> 
   );
 }

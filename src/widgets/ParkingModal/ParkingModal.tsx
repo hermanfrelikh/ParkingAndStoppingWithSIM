@@ -1,7 +1,10 @@
+// src/widgets/ParkingModal/ParkingModal.tsx
 import { useEffect } from 'react';
+import { useFavorites } from '@/shared/lib/useFavorites';
 import styles from './ParkingModal.module.scss';
 
-interface ParkingProperties {
+// Экспортируем, чтобы использовать в useFavorites
+export type ParkingProperties = {
   id: number;
   name_obj: string;
   vid: string;
@@ -9,8 +12,8 @@ interface ParkingProperties {
   material_fence: string | null;
   name_ao: string;
   name_raion: string;
-  occupied: string
-}
+  occupied: string;
+};
 
 interface ParkingModalProps {
   isOpen: boolean;
@@ -19,13 +22,25 @@ interface ParkingModalProps {
 }
 
 export function ParkingModal({ isOpen, onClose, data }: ParkingModalProps) {
+  const { addToFavorites, isFavorite } = useFavorites();
+
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
-    if (isOpen) window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
+    if (isOpen) {
+      window.addEventListener('keydown', handleEsc);
+    }
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+    };
   }, [isOpen, onClose]);
+
+  const handleAddToFavorites = () => {
+    if (data) {
+      addToFavorites(data);
+    }
+  };
 
   if (!isOpen || !data) return null;
 
@@ -39,6 +54,9 @@ export function ParkingModal({ isOpen, onClose, data }: ParkingModalProps) {
           <p>Район: {data.name_raion}</p>
           <p>Занято: {data.occupied}</p>
         </div>
+        <button onClick={handleAddToFavorites}>
+          {isFavorite(data.id) ? 'В избранном' : 'Добавить в избранное'}
+        </button>
       </div>
     </div>
   );

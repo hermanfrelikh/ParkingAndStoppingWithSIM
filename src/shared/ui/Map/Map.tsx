@@ -2,22 +2,16 @@ import { useEffect, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { mockParking } from '@/shared/data/parkingData';
-import { ParkingModal } from '@/widgets/ParkingModal';
+import { ParkingModal } from '@/widgets/ParkingModal/ParkingModal';
+import { useSearchParams, useNavigate } from 'react-router';
 
-interface ParkingProperties {
-  id: number;
-  name_obj: string;
-  vid: string;
-  name: string | null;
-  material_fence: string | null;
-  name_ao: string;
-  name_raion: string;
-  occupied: string;
-}
+type ParkingProperties = import('@/widgets/ParkingModal/ParkingModal').ParkingProperties;
 
-export const Map = () => {
+export function Map() {
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const [selectedParking, setSelectedParking] = useState<ParkingProperties | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -35,12 +29,10 @@ export const Map = () => {
     mapRef.current = map;
 
     map.on('load', () => {
-      //bbox
       const bounds: [[number, number], [number, number]] = [
-        [37.5415, 55.8320], // юго-западный угол [lng, lat]
-        [37.5462, 55.8375], // северо-восточный угол [lng, lat]
+        [37.5415, 55.8320],
+        [37.5462, 55.8375],
       ];
-
       map.fitBounds(bounds, { padding: 40 });
 
       map.addSource('parkings', {
@@ -68,10 +60,16 @@ export const Map = () => {
         },
       });
 
-      map.on('click', 'parking-polygons', (e) => {
-        if (!e.features || e.features.length === 0) return;
-        const props = e.features[0].properties as any;
-        if (props) {
+      const parkingIdParam = searchParams.get('parkingId');
+      if (parkingIdParam) {
+        const id = Number(parkingIdParam);
+        const feature = mockParking.features.find(f => f.properties?.id === id);
+        if (feature && feature.geometry.type === 'Polygon') {
+          const coords = feature.geometry.coordinates[0];
+          const center = getPolygonCenter(coords);
+          map.easeTo({ center, zoom: 16, duration: 500 });
+
+          const props = feature.properties as any;
           setSelectedParking({
             id: Number(props.id),
             name_obj: props.name_obj || '',
@@ -84,6 +82,31 @@ export const Map = () => {
           });
           setModalOpen(true);
         }
+      }
+
+      map.on('click', 'parking-polygons', (e) => {
+        if (!e.features?.[0]?.properties) return;
+        const props = e.features[0].properties as any;
+        const parkingData: ParkingProperties = {
+          id: Number(props.id),
+          name_obj: props.name_obj || '',
+          vid: props.vid || '',
+          name: props.name || null,
+          material_fence: props.material_fence || null,
+          name_ao: props.name_ao || '',
+          name_raion: props.name_raion || '',
+          occupied: props.occupied || '',
+        };
+
+        if (e.features[0].geometry.type === 'Polygon') {
+          const coords = e.features[0].geometry.coordinates[0];
+          const center = getPolygonCenter(coords);
+          map.easeTo({ center, zoom: 16, duration: 300 });
+        }
+
+        setSelectedParking(parkingData);
+        setModalOpen(true);
+        navigate(`/?parkingId=${parkingData.id}`, { replace: true });
       });
 
       map.on('mouseenter', 'parking-polygons', () => {
@@ -102,14 +125,29 @@ export const Map = () => {
     };
   }, []);
 
+  const closeModal = () => {
+    setModalOpen(false);
+    setSelectedParking(null);
+    navigate('/', { replace: true });
+  };
+
   return (
     <>
       <div ref={mapContainer} style={{ width: '100%', height: '100vh' }} />
       <ParkingModal
         isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
+        onClose={closeModal}
         data={selectedParking}
       />
     </>
   );
-};
+}
+
+function getPolygonCenter(coordinates: [number, number][]): [number, number] {
+  let x = 0, y = 0;
+  for (const [lng, lat] of coordinates) {
+    x += lng;
+    y += lat;
+  }
+  return [x / coordinates.length, y / coordinates.length];
+}

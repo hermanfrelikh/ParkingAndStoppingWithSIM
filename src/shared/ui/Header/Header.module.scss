@@ -1,0 +1,20 @@
+.header{
+  margin-left: 30px;
+  height: 40px;
+  margin-top: 20px;
+  display: flex;
+
+  &Title{
+  color: #808080;
+  display: flex;
+  align-items: center;
+  }
+
+  &BackButton{
+  border: none;
+  background-color: white;
+}
+}
+
+
+

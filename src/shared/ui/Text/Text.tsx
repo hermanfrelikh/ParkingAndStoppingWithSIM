@@ -3,7 +3,7 @@ import type {
   HTMLAttributes,
   AnchorHTMLAttributes,
 } from "react";
-import cls from "./Text.module.css";
+import cls from "./Text.module.scss";
 
 /**
  * Варианты типографики, соответствуют классам в CSS-модуле
