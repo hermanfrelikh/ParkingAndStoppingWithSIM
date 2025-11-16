@@ -1,0 +1,28 @@
+.toggleButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  width: 350px;
+  height: 54px;
+  border-radius: 16px;
+
+  &Icon{
+    margin-right: 0;
+  }
+
+  &Inactive {
+  background: #0568EA;
+  color: white;
+  border: 1px solid #729FFF;
+  }
+
+  &Active {
+  background: #ACD0FF;
+  color: #1B1366;
+  border: 1px solid #99B9FF;
+  }
+}
+

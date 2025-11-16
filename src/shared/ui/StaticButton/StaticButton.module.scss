@@ -1,0 +1,14 @@
+.staticButton{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  width: 310px;
+  height: 48px;
+  border-radius: 16px;
+  background: #007BFF;
+  color: white;
+  border: 1px #007BFF solid;
+}

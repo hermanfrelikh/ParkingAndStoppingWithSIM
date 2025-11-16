@@ -3,6 +3,9 @@ import { Header } from '@/shared/ui/Header/Header';
 import { useFavorites } from '@/shared/lib/useFavorites';
 import { useNavigate } from 'react-router';
 import styles from './Favorites.module.scss';
+import { Text } from '@/shared/ui/Text';
+import { ParkingSpaces } from '@/shared/ui/ParkingSpaces';
+import { StaticButton } from '@/shared/ui/StaticButton';
 
 export function Favorites() {
   const { favorites } = useFavorites();
@@ -15,6 +18,7 @@ export function Favorites() {
   return (
     <main className={styles.favorites}>
       <Header title="Избранные" />
+      
       {favorites.length === 0 ? (
         <div >
           <p>Нет избранных парковок</p>
@@ -23,12 +27,17 @@ export function Favorites() {
         <ul className={styles.favoritesList}>
           {favorites.toReversed().map((parking) => (
             <li key={parking.id} className={styles.favoritesItem}>
-              <h3>{parking.name_obj}</h3>
-              <p>Район: {parking.name_raion}</p>
-              <p>Занято: {parking.occupied}</p>
-              <button onClick={() => handleGoTo(parking.id)}>
-                Перейти к парковке
-              </button>
+              <div className={styles.favoritesInfo}>
+                <Text variant="h3">
+                  {parking.name_obj}
+                </Text>
+                <Text className={styles.favoritesAddress} variant="h4">
+                  {parking.name_raion}
+                </Text>
+                <ParkingSpaces parkingOccupied={parking.occupied} />
+              </div>
+              
+              <StaticButton text={"Перейти к парковке"} onClick={()=>handleGoTo(parking.id)}/>
             </li>
           ))}
         </ul>

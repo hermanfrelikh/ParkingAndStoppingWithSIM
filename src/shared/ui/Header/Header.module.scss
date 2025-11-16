@@ -1,18 +1,25 @@
 .header{
-  margin-left: 30px;
+  margin-left: 20px;
   height: 40px;
   margin-top: 20px;
   display: flex;
+
+  align-items: center;
 
   &Title{
   color: #808080;
   display: flex;
   align-items: center;
+
+  height: 24px;
   }
 
   &BackButton{
-  border: none;
-  background-color: white;
+    border: none;
+    background-color: white;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
 }
 }
 

@@ -24,6 +24,7 @@ export function Map() {
       style: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
       center: [37.6173, 55.7558],
       zoom: 14,
+      attributionControl: false,
     });
 
     mapRef.current = map;

@@ -1,9 +1,10 @@
-// src/widgets/ParkingModal/ParkingModal.tsx
 import { useEffect } from 'react';
 import { useFavorites } from '@/shared/lib/useFavorites';
 import styles from './ParkingModal.module.scss';
+import { ToggleButton } from '@/shared/ui/ToggleButton';
+import { ParkingSpaces } from '@/shared/ui/ParkingSpaces';
+import { IsFavoritesFilledIcon, IsFavoritesIcon } from '@/shared/assets/icons';
 
-// Экспортируем, чтобы использовать в useFavorites
 export type ParkingProperties = {
   id: number;
   name_obj: string;
@@ -22,7 +23,8 @@ interface ParkingModalProps {
 }
 
 export function ParkingModal({ isOpen, onClose, data }: ParkingModalProps) {
-  const { addToFavorites, isFavorite } = useFavorites();
+
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -36,13 +38,15 @@ export function ParkingModal({ isOpen, onClose, data }: ParkingModalProps) {
     };
   }, [isOpen, onClose]);
 
-  const handleAddToFavorites = () => {
+  const handleToggleFavorite = () => {
     if (data) {
-      addToFavorites(data);
+      toggleFavorite(data); 
     }
   };
 
   if (!isOpen || !data) return null;
+
+  const isActive = isFavorite(data.id);
 
   return (
     <div className={styles.overlay} onClick={onClose}>
@@ -52,11 +56,19 @@ export function ParkingModal({ isOpen, onClose, data }: ParkingModalProps) {
           <h2>{data.name_obj}</h2>
           <p>Тип: {data.vid}</p>
           <p>Район: {data.name_raion}</p>
-          <p>Занято: {data.occupied}</p>
+          <ParkingSpaces parkingOccupied={data.occupied} />
+          
         </div>
-        <button onClick={handleAddToFavorites}>
-          {isFavorite(data.id) ? 'В избранном' : 'Добавить в избранное'}
-        </button>
+        
+        <ToggleButton
+          isActive={isActive}
+          inactiveText="Добавить в избранное"
+          activeText="Убрать из избранного"
+          inactiveIcon={<IsFavoritesIcon/>}
+          activeIcon={<IsFavoritesFilledIcon/>}
+          onClick={handleToggleFavorite} 
+        />
+        
       </div>
     </div>
   );

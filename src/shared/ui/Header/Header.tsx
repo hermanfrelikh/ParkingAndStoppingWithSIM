@@ -12,7 +12,7 @@ export function Header({title}: HeaderProps) {
   return (
     <header className={style.header}>
       <button className={style.headerBackButton}>
-          <ArrowBackIcon  onClick={() => navigate(-1)} style={{ width: "30px" }} />
+          <ArrowBackIcon  onClick={() => navigate(-1)} style={{ width: "24px", height: "24px",  marginTop: "-2px", marginLeft: "-7px" }} />
       </button>
       <Text className={style.headerTitle} variant="h4">{title}</Text>
     </header>

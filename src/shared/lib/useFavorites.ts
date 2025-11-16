@@ -1,4 +1,3 @@
-// src/shared/lib/useFavorites.ts
 import { useState, useEffect } from 'react';
 
 export type ParkingItem = {
@@ -28,12 +27,28 @@ export function useFavorites() {
     }
   }, []);
 
+  const saveToStorage = (updated: ParkingItem[]) => {
+    setFavorites(updated);
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(updated));
+  };
+
   const addToFavorites = (item: ParkingItem) => {
-    const exists = favorites.some(p => p.id === item.id);
-    if (!exists) {
-      const updated = [...favorites, item];
-      setFavorites(updated);
-      localStorage.setItem(FAVORITES_KEY, JSON.stringify(updated));
+    if (!favorites.some(p => p.id === item.id)) {
+      saveToStorage([...favorites, item]);
+    }
+  };
+
+  const removeFromFavorites = (id: number) => {
+    const updated = favorites.filter(p => p.id !== id);
+    saveToStorage(updated);
+  };
+
+  const toggleFavorite = (item: ParkingItem) => {
+    const id = item.id;
+    if (favorites.some(p => p.id === id)) {
+      removeFromFavorites(id);
+    } else {
+      addToFavorites(item);
     }
   };
 
@@ -44,6 +59,8 @@ export function useFavorites() {
   return {
     favorites,
     addToFavorites,
+    removeFromFavorites, 
+    toggleFavorite,      
     isFavorite,
   };
 }

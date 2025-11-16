@@ -8,7 +8,7 @@ import cls from "./Text.module.scss";
 /**
  * Варианты типографики, соответствуют классам в CSS-модуле
  */
-type Variant = "h1" | "h2" | "h4" | "body" | "bodySm" | "caption" | "link";
+type Variant = "h1" | "h2" | "h3" | "h4" | "body" | "bodySm" | "caption" | "link";
 
 /**
  * Отображение варианта в HTML-тег по умолчанию
@@ -17,6 +17,7 @@ type AsMap = Record<Variant, ElementType>;
 const asMap: AsMap = {
   h1: "h1",
   h2: "h2",
+  h3: "h3",
   h4: "h4",
   body: "p",
   bodySm: "p",
