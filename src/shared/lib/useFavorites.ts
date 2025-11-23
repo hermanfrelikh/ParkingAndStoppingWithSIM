@@ -9,6 +9,7 @@ export type ParkingItem = {
   name_ao: string;
   name_raion: string;
   occupied: string;
+  commentary: string;
 };
 
 const FAVORITES_KEY = 'parking_favorites';

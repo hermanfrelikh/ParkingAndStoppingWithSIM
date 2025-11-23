@@ -7,13 +7,14 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
         "type": "Feature",
         "properties": {
           "id": 265,
-          "name_obj": "SPECTERR",
+          "name_obj": "Парковка №228",
           "vid": "Автостоянка",
           "name": null,
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево",
-           "occupied": "10/10"
+           "occupied": "10/10",
+           "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
         },
         "geometry": {
           "type": "Polygon",
@@ -32,13 +33,14 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
         "type": "Feature",
         "properties": {
           "id": 317,
-          "name_obj": "SPECTERR",
+          "name_obj": "Парковка №2321323",
           "vid": "Автостоянка",
           "name": null,
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "2/10"
+          , "occupied": "2/10",
+            "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
         },
         "geometry": {
           "type": "Polygon",
@@ -57,13 +59,14 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
         "type": "Feature",
         "properties": {
           "id": 5366,
-          "name_obj": "SPECTERR",
+          "name_obj": "Парковка №8687867",
           "vid": "Автостоянка",
           "name": null,
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "5/10"
+          , "occupied": "5/10",
+            "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
         },
         "geometry": {
           "type": "Polygon",
@@ -82,13 +85,14 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
         "type": "Feature",
         "properties": {
           "id": 8692,
-          "name_obj": "SPECTERR",
+          "name_obj": "Парковка №2321",
           "vid": "Автостоянка",
           "name": null,
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "5/10"
+          , "occupied": "5/10",
+            "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
         },
         "geometry": {
           "type": "Polygon",
@@ -106,13 +110,14 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
         "type": "Feature",
         "properties": {
           "id": 8942,
-          "name_obj": "SPECTERR",
+          "name_obj": "Парковка №2321",
           "vid": "Автостоянка",
           "name": null,
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "1/10"
+          , "occupied": "1/10",
+            "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
 
         },
         "geometry": {
@@ -137,7 +142,9 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "6/10"
+          , "occupied": "6/10",
+          "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
+
 
         },
         "geometry": {
@@ -164,7 +171,8 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "5/10"
+          , "occupied": "5/10",
+          "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
 
         },
         "geometry": {
@@ -193,7 +201,8 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "5/10"
+          , "occupied": "5/10",
+          "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
 
         },
         "geometry": {
@@ -218,7 +227,8 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "6/10"
+          , "occupied": "6/10",
+          "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
 
         },
         "geometry": {
@@ -243,7 +253,8 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "5/10"
+          , "occupied": "5/10",
+          "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
 
         },
         "geometry": {
@@ -268,7 +279,8 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "5/10"
+          , "occupied": "5/10",
+          "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
 
         },
         "geometry": {
@@ -295,7 +307,8 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "8/10"
+          , "occupied": "8/10",
+          "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
 
         },
         "geometry": {
@@ -324,7 +337,8 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "8/10"
+          , "occupied": "8/10",
+          "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
 
         },
         "geometry": {
@@ -351,7 +365,8 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "5/10"
+          , "occupied": "5/10",
+          "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
 
         },
         "geometry": {
@@ -392,7 +407,8 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "5/10"
+          , "occupied": "5/10",
+          "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
 
         },
         "geometry": {
@@ -433,7 +449,8 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "5/10"
+          , "occupied": "5/10",
+          "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
 
         },
         "geometry": {
@@ -473,7 +490,8 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "5/10"
+          , "occupied": "5/10",
+          "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
 
         },
         "geometry": {
@@ -514,7 +532,8 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "5/10"
+          , "occupied": "5/10",
+          "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
 
         },
         "geometry": {
@@ -555,7 +574,8 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "5/10"
+          , "occupied": "5/10",
+          "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
 
         },
         "geometry": {
@@ -596,7 +616,8 @@ export const mockParking: FeatureCollection<Geometry, GeoJsonProperties> = {
           "material_fence": null,
           "name_ao": "САО",
           "name_raion": "Коптево"
-          , "occupied": "5/10"
+          , "occupied": "5/10",
+          "commentary": "Парковка номер 52, находится по адресу Михалковская ул. д. 1/51. Заезд на парковку находится с ул. Михалковская. Во дворе стоят лежачие полицейские. Заезд ограждён шлагбаумом."
 
         },
         "geometry": {

@@ -14,6 +14,7 @@ export type ParkingProperties = {
   name_ao: string;
   name_raion: string;
   occupied: string;
+  commentary: string;
 };
 
 interface ParkingModalProps {
@@ -40,7 +41,7 @@ export function ParkingModal({ isOpen, onClose, data }: ParkingModalProps) {
 
   const handleToggleFavorite = () => {
     if (data) {
-      toggleFavorite(data); 
+      toggleFavorite(data);
     }
   };
 
@@ -57,18 +58,20 @@ export function ParkingModal({ isOpen, onClose, data }: ParkingModalProps) {
           <p>Тип: {data.vid}</p>
           <p>Район: {data.name_raion}</p>
           <ParkingSpaces parkingOccupied={data.occupied} />
-          
+
+          <p>{data.commentary ?? "Комментарий отсутствует"}</p>
+
         </div>
-        
+
         <ToggleButton
           isActive={isActive}
           inactiveText="Добавить в избранное"
           activeText="Убрать из избранного"
-          inactiveIcon={<IsFavoritesIcon/>}
-          activeIcon={<IsFavoritesFilledIcon/>}
-          onClick={handleToggleFavorite} 
+          inactiveIcon={<IsFavoritesIcon />}
+          activeIcon={<IsFavoritesFilledIcon />}
+          onClick={handleToggleFavorite}
         />
-        
+
       </div>
     </div>
   );

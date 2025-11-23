@@ -8,14 +8,12 @@
     padding: 0;
     margin: 20px 0 0;
     width: 100%;
-
   }
 
   &Item{
     border: 3px solid #007BFF;
     border-radius: 15px;
     width: 350px;
-    height: 209px;
     margin-bottom: 30px;
     display: flex;
     flex-direction: column;
@@ -28,5 +26,8 @@
   }
   &Address{
     margin-top: 15px;
+  }
+  .customToggleButton {
+    width: 310px;
   }
 }

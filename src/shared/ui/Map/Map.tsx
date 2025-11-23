@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { mockParking } from '@/shared/data/parkingData';
@@ -16,29 +16,92 @@ export function Map() {
   const [selectedParking, setSelectedParking] = useState<ParkingProperties | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
+  const currentSelectedId = useRef<number | null>(null);
+
+  const getPolygonCenter = (coordinates: [number, number][]): [number, number] => {
+    let x = 0, y = 0;
+    for (const [lng, lat] of coordinates) {
+      x += lng;
+      y += lat;
+    }
+    return [x / coordinates.length, y / coordinates.length];
+  };
+
+  const highlightParking = useCallback((id: number | null) => {
+    const map = mapRef.current;
+    if (!map || !map.getSource('parkings')) return;
+
+
+    if (currentSelectedId.current !== null) {
+      map.setFeatureState(
+        { source: 'parkings', id: currentSelectedId.current },
+        { selected: false }
+      );
+    }
+
+    if (id === null) {
+      setModalOpen(false);
+      currentSelectedId.current = null;
+      return;
+    }
+
+    const feature = mockParking.features.find((f) => f.properties?.id === id);
+
+    if (feature) {
+
+      map.setFeatureState(
+        { source: 'parkings', id: id },
+        { selected: true }
+      );
+      currentSelectedId.current = id;
+
+
+      if (feature.geometry.type === 'Polygon') {
+        const coords = feature.geometry.coordinates[0];
+        const center = getPolygonCenter(coords);
+        map.flyTo({
+          center: center,
+          zoom: 16,
+          speed: 1.5,
+          curve: 1,
+          essential: true
+        });
+      }
+
+      const props = feature.properties as any;
+      setSelectedParking({
+        id: Number(props.id),
+        name_obj: props.name_obj || '',
+        vid: props.vid || '',
+        name: props.name || null,
+        material_fence: props.material_fence || null,
+        name_ao: props.name_ao || '',
+        name_raion: props.name_raion || '',
+        occupied: props.occupied || '',
+        commentary: props.commentary || '',
+      });
+      setModalOpen(true);
+    }
+  }, []);
+
   useEffect(() => {
-    if (!mapContainer.current || mapRef.current) return;
+    if (mapRef.current) return;
 
     const map = new maplibregl.Map({
-      container: mapContainer.current,
+      container: mapContainer.current!,
       style: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
       center: [37.6173, 55.7558],
-      zoom: 14,
+      zoom: 11,
       attributionControl: false,
     });
 
     mapRef.current = map;
 
     map.on('load', () => {
-      const bounds: [[number, number], [number, number]] = [
-        [37.5415, 55.8320],
-        [37.5462, 55.8375],
-      ];
-      map.fitBounds(bounds, { padding: 40 });
-
       map.addSource('parkings', {
         type: 'geojson',
         data: mockParking,
+        promoteId: 'id',
       });
 
       map.addLayer({
@@ -46,8 +109,13 @@ export function Map() {
         type: 'fill',
         source: 'parkings',
         paint: {
-          'fill-color': '#1E90FF',
-          'fill-opacity': 0.5,
+          'fill-color': [
+            'case',
+            ['boolean', ['feature-state', 'selected'], false],
+            '#FF4500',
+            '#1E90FF',
+          ],
+          'fill-opacity': 0.6,
         },
       });
 
@@ -61,53 +129,29 @@ export function Map() {
         },
       });
 
-      const parkingIdParam = searchParams.get('parkingId');
-      if (parkingIdParam) {
-        const id = Number(parkingIdParam);
-        const feature = mockParking.features.find(f => f.properties?.id === id);
-        if (feature && feature.geometry.type === 'Polygon') {
-          const coords = feature.geometry.coordinates[0];
-          const center = getPolygonCenter(coords);
-          map.easeTo({ center, zoom: 16, duration: 500 });
 
-          const props = feature.properties as any;
-          setSelectedParking({
-            id: Number(props.id),
-            name_obj: props.name_obj || '',
-            vid: props.vid || '',
-            name: props.name || null,
-            material_fence: props.material_fence || null,
-            name_ao: props.name_ao || '',
-            name_raion: props.name_raion || '',
-            occupied: props.occupied || '',
-          });
-          setModalOpen(true);
-        }
+      const initialParams = new URLSearchParams(window.location.search);
+      const initialId = initialParams.get('parkingId');
+
+      if (initialId) {
+
+        highlightParking(Number(initialId));
+      } else {
+
+        map.flyTo({
+          center: [37.525, 55.835],
+          zoom: 14,
+          speed: 1.2,
+          curve: 1.1,
+          essential: true
+        });
       }
 
       map.on('click', 'parking-polygons', (e) => {
-        if (!e.features?.[0]?.properties) return;
-        const props = e.features[0].properties as any;
-        const parkingData: ParkingProperties = {
-          id: Number(props.id),
-          name_obj: props.name_obj || '',
-          vid: props.vid || '',
-          name: props.name || null,
-          material_fence: props.material_fence || null,
-          name_ao: props.name_ao || '',
-          name_raion: props.name_raion || '',
-          occupied: props.occupied || '',
-        };
-
-        if (e.features[0].geometry.type === 'Polygon') {
-          const coords = e.features[0].geometry.coordinates[0];
-          const center = getPolygonCenter(coords);
-          map.easeTo({ center, zoom: 16, duration: 300 });
+        if (e.features && e.features.length > 0) {
+          const id = e.features[0].properties.id;
+          navigate(`/?parkingId=${id}`, { replace: true });
         }
-
-        setSelectedParking(parkingData);
-        setModalOpen(true);
-        navigate(`/?parkingId=${parkingData.id}`, { replace: true });
       });
 
       map.on('mouseenter', 'parking-polygons', () => {
@@ -119,16 +163,26 @@ export function Map() {
     });
 
     return () => {
-      if (mapRef.current) {
-        mapRef.current.remove();
-        mapRef.current = null;
-      }
+      map.remove();
+      mapRef.current = null;
     };
   }, []);
 
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !map.isStyleLoaded() || !map.getSource('parkings')) return;
+
+    const idParam = searchParams.get('parkingId');
+    const id = idParam ? Number(idParam) : null;
+
+    if (id !== currentSelectedId.current) {
+      highlightParking(id);
+    }
+
+  }, [searchParams, highlightParking]);
+
   const closeModal = () => {
     setModalOpen(false);
-    setSelectedParking(null);
     navigate('/', { replace: true });
   };
 
@@ -142,13 +196,4 @@ export function Map() {
       />
     </>
   );
-}
-
-function getPolygonCenter(coordinates: [number, number][]): [number, number] {
-  let x = 0, y = 0;
-  for (const [lng, lat] of coordinates) {
-    x += lng;
-    y += lat;
-  }
-  return [x / coordinates.length, y / coordinates.length];
 }
