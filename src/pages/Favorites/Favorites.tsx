@@ -1,6 +1,6 @@
 
 import { Header } from '@/shared/ui/Header/Header';
-import { useFavorites } from '@/shared/lib/useFavorites';
+import { useFavorites, type ParkingItem } from '@/shared/lib/useFavorites';
 import { useNavigate } from 'react-router';
 import styles from './Favorites.module.scss';
 import { Text } from '@/shared/ui/Text';
@@ -31,7 +31,7 @@ export function Favorites() {
         </div>
       ) : (
         <ul className={styles.favoritesList}>
-          {favorites.toReversed().map((parking) => (
+          {favorites.toReversed().map((parking: ParkingItem) => (
             <li key={parking.id} className={styles.favoritesItem}>
               <div className={styles.favoritesInfo}>
                 <Text variant="h3">{parking.name_obj}</Text>

@@ -5,9 +5,9 @@ import { mockParking } from '@/shared/data/parkingData';
 import { ParkingModal } from '@/widgets/ParkingModal/ParkingModal';
 import { useSearchParams, useNavigate } from 'react-router';
 
-type ParkingProperties = import('@/widgets/ParkingModal/ParkingModal').ParkingProperties;
 
-export function Map() {
+
+export function Map(_props) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const [searchParams] = useSearchParams();
@@ -15,7 +15,6 @@ export function Map() {
 
   const [selectedParking, setSelectedParking] = useState<ParkingProperties | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
-
   const currentSelectedId = useRef<number | null>(null);
 
   const getPolygonCenter = (coordinates: [number, number][]): [number, number] => {
@@ -31,7 +30,6 @@ export function Map() {
     const map = mapRef.current;
     if (!map || !map.getSource('parkings')) return;
 
-
     if (currentSelectedId.current !== null) {
       map.setFeatureState(
         { source: 'parkings', id: currentSelectedId.current },
@@ -46,19 +44,16 @@ export function Map() {
     }
 
     const feature = mockParking.features.find((f) => f.properties?.id === id);
-
     if (feature) {
-
       map.setFeatureState(
         { source: 'parkings', id: id },
         { selected: true }
       );
       currentSelectedId.current = id;
 
-
       if (feature.geometry.type === 'Polygon') {
         const coords = feature.geometry.coordinates[0];
-        const center = getPolygonCenter(coords);
+        const center = getPolygonCenter(coords as [number, number][]);
         map.flyTo({
           center: center,
           zoom: 16,
@@ -68,7 +63,7 @@ export function Map() {
         });
       }
 
-      const props = feature.properties as any;
+      const props = feature.properties;
       setSelectedParking({
         id: Number(props.id),
         name_obj: props.name_obj || '',
@@ -129,15 +124,10 @@ export function Map() {
         },
       });
 
-
-      const initialParams = new URLSearchParams(window.location.search);
-      const initialId = initialParams.get('parkingId');
-
+      const initialId = new URLSearchParams(window.location.search).get('parkingId');
       if (initialId) {
-
         highlightParking(Number(initialId));
       } else {
-
         map.flyTo({
           center: [37.525, 55.835],
           zoom: 14,
@@ -163,8 +153,10 @@ export function Map() {
     });
 
     return () => {
-      map.remove();
-      mapRef.current = null;
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
+      }
     };
   }, []);
 
@@ -178,7 +170,6 @@ export function Map() {
     if (id !== currentSelectedId.current) {
       highlightParking(id);
     }
-
   }, [searchParams, highlightParking]);
 
   const closeModal = () => {
@@ -197,3 +188,6 @@ export function Map() {
     </>
   );
 }
+
+// Тип из другого файла — так TypeScript знает, что это
+type ParkingProperties = import('@/widgets/ParkingModal/ParkingModal').ParkingProperties;

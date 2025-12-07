@@ -105,7 +105,7 @@ export function Profile() {
 
             const { label, icon } = fields[fieldKey];
 
-            let displayValue: string | number = value;
+            let displayValue: string | number = String(value);
             if (key === "password") {
               displayValue = "*".repeat(String(value).length);
             } else if (key === "subscription") {
