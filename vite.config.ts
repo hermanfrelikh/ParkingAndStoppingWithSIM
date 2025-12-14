@@ -11,6 +11,15 @@ const root = fileURLToPath(new URL(".", import.meta.url));
 
 export default defineConfig({
   plugins: [react(), svgr()],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://backend-cn5s.onrender.com', // Куда реально стучаться
+        changeOrigin: true,
+        secure: false,      
+      },
+    },
+  },
   resolve: {
     alias: {
       // Алиас для импорта из src (работает и в TS/JS, и в SCSS)
