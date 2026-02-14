@@ -17,7 +17,9 @@ export function Map({ data }: MapProps) {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const [selectedParking, setSelectedParking] = useState<ParkingUIModel | null>(null);
+  const [selectedParking, setSelectedParking] = useState<ParkingUIModel | null>(
+    null
+  );
   const [modalOpen, setModalOpen] = useState(false);
   const currentSelectedId = useRef<number | null>(null);
 
@@ -53,14 +55,11 @@ export function Map({ data }: MapProps) {
     }
 
     // Ищем в пропсах (так надежнее, чем querySourceFeatures)
-    const feature = dataRef.current?.features.find((f) => f.id === id);
+    const feature = dataRef.current?.features.find(f => f.id === id);
 
     if (feature) {
       if (map.getSource('parkings')) {
-        map.setFeatureState(
-          { source: 'parkings', id: id },
-          { selected: true }
-        );
+        map.setFeatureState({ source: 'parkings', id: id }, { selected: true });
       }
       currentSelectedId.current = id;
 
@@ -70,7 +69,7 @@ export function Map({ data }: MapProps) {
         center: [lon, lat],
         zoom: 16,
         speed: 1.5,
-        essential: true
+        essential: true,
       });
 
       setSelectedParking(feature.properties);
@@ -96,7 +95,10 @@ export function Map({ data }: MapProps) {
 
       // ! ИСПРАВЛЕНИЕ: Используем dataRef.current сразу при инициализации
       // Если данные уже пришли, они сразу появятся. Если null - пустой массив.
-      const initialData = dataRef.current || { type: 'FeatureCollection', features: [] };
+      const initialData = dataRef.current || {
+        type: 'FeatureCollection',
+        features: [],
+      };
 
       map.addSource('parkings', {
         type: 'geojson',
@@ -116,11 +118,11 @@ export function Map({ data }: MapProps) {
           // Белая обводка
           'circle-stroke-width': 2,
           'circle-stroke-color': '#ffffff',
-          'circle-opacity': 1
+          'circle-opacity': 1,
         },
       });
 
-      map.on('click', 'parking-points', (e) => {
+      map.on('click', 'parking-points', e => {
         if (e.features && e.features.length > 0) {
           const id = e.features[0].id as number;
           navigate(`/?parkingId=${id}`, { replace: true });
@@ -135,7 +137,9 @@ export function Map({ data }: MapProps) {
       });
 
       // После загрузки карты проверяем URL, вдруг надо сразу открыть парковку
-      const idParam = new URLSearchParams(window.location.search).get('parkingId');
+      const idParam = new URLSearchParams(window.location.search).get(
+        'parkingId'
+      );
       if (idParam) {
         // Небольшой таймаут, чтобы источник успел "переварить" данные
         setTimeout(() => highlightParking(Number(idParam)), 100);
@@ -164,7 +168,8 @@ export function Map({ data }: MapProps) {
   // Реакция на изменение URL
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !map.isStyleLoaded() || !map.getSource('parkings') || !data) return;
+    if (!map || !map.isStyleLoaded() || !map.getSource('parkings') || !data)
+      return;
 
     const idParam = searchParams.get('parkingId');
     const id = idParam ? Number(idParam) : null;

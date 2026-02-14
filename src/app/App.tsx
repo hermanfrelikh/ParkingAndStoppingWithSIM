@@ -1,16 +1,14 @@
-import { BrowserRouter } from "react-router";
-import { AppRouter } from "./AppRouter";
-import { BottomNav } from "@/widgets/BottomNav/BottomNav";
+import { BrowserRouter } from 'react-router';
+import { AppRouter } from './AppRouter';
+import { BottomNav } from '@/widgets/BottomNav/BottomNav';
 
 function App() {
-  
   return (
     <>
-    <BrowserRouter>
-      <AppRouter />
-      <BottomNav />
-    </BrowserRouter>
-
+      <BrowserRouter>
+        <AppRouter />
+        <BottomNav />
+      </BrowserRouter>
     </>
   );
 }
