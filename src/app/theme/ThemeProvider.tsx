@@ -2,7 +2,7 @@ import {
   ThemeContext,
   type Theme,
   type ThemeContextType,
-} from '@/app/context/ThemeContext';
+} from '@/app/theme/ThemeContext';
 import { useState, useEffect } from 'react';
 
 interface ThemeProviderProps {

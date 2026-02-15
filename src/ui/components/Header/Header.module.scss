@@ -22,12 +22,3 @@
     margin-right: 8px;
   }
 }
-
-.dark {
-  .header {
-    background: var(--color-bg-dark);
-    &BackButton {
-      background: var(--color-bg-dark) !important;
-    }
-  }
-}

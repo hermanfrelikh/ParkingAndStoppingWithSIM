@@ -6,7 +6,7 @@ import { ParkingModal } from '@/ui/widgets/ParkingModal/ParkingModal';
 import { useSearchParams, useNavigate } from 'react-router';
 import type { FeatureCollection, Point } from 'geojson';
 import type { ParkingUIModel } from '@/shared/types/parking';
-import { useTheme } from '@/context/useTheme';
+import { useTheme } from '@/app/theme/useTheme';
 
 interface MapProps {
   data: FeatureCollection<Point, ParkingUIModel> | null;

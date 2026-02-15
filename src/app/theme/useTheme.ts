@@ -1,4 +1,4 @@
-import { ThemeContext } from '@/app/context/ThemeContext';
+import { ThemeContext } from '@/app/theme/ThemeContext';
 import { useContext } from 'react';
 
 // Кастомный хук

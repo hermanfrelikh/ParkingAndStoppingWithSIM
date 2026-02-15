@@ -6,7 +6,7 @@ import {
 import style from './BottomNav.module.scss';
 import { useLocation, useNavigate } from 'react-router';
 import { Text } from '@/ui/components/Text';
-import { useTheme } from '@/context/useTheme';
+import { useTheme } from '@/app/theme/useTheme';
 
 const navItems = {
   main: { label: 'Главная', icon: HomeIcon, link: '/' },
