@@ -1,0 +1,10 @@
+.mainPage {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.dark {
+  .mainPage {
+    background: var(--color-bg-dark);
+  }
+}

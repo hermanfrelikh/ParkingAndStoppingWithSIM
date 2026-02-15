@@ -1,4 +1,4 @@
-.header{
+.header {
   margin-left: 20px;
   height: 40px;
   margin-top: 20px;
@@ -6,22 +6,28 @@
 
   align-items: center;
 
-  &Title{
-  color: #808080;
-  display: flex;
-  align-items: center;
+  &Title {
+    color: #808080;
+    display: flex;
+    align-items: center;
 
-  height: 24px;
+    height: 24px;
   }
 
-  &BackButton{
+  &BackButton {
     border: none;
     background-color: white;
     width: 24px;
     height: 24px;
     margin-right: 8px;
+  }
 }
+
+.dark {
+  .header {
+    background: var(--color-bg-dark);
+    &BackButton {
+      background: var(--color-bg-dark) !important;
+    }
+  }
 }
-
-
-

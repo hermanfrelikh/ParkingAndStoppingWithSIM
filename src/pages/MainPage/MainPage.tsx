@@ -2,13 +2,17 @@ import { useEffect, useState } from 'react';
 import { Map } from '@/shared/ui/Map/Map';
 import { parkingApi } from '@/shared/api/parkings';
 import { mapDtoToModel, mapToGeoJson } from '@/shared/lib/parkingAdapter';
-// Импортируем нужные типы
 import type { FeatureCollection, Point } from 'geojson';
 import type { ParkingUIModel } from '@/shared/types/parking';
-
+import style from './MainPage.module.scss';
+import { useTheme } from '@/app/context/useTheme';
 export function MainPage() {
-  // ! ИСПРАВЛЕНИЕ: Явно указываем типы Point и ParkingUIModel
-  const [geoJsonData, setGeoJsonData] = useState<FeatureCollection<Point, ParkingUIModel> | null>(null);
+  const { theme } = useTheme();
+  // ИСПРАВЛЕНИЕ: Явно указываем типы Point и ParkingUIModel
+  const [geoJsonData, setGeoJsonData] = useState<FeatureCollection<
+    Point,
+    ParkingUIModel
+  > | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -31,14 +35,16 @@ export function MainPage() {
   }, []);
 
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <main style={{ flex: 1, position: 'relative' }}>
-        {isLoading ? (
-          <div>Загрузка карты...</div>
-        ) : (
-          <Map data={geoJsonData} />
-        )}
-      </main>
+    <div className={style[theme]}>
+      <div className={style.mainPage}>
+        <main style={{ flex: 1, position: 'relative' }}>
+          {isLoading ? (
+            <div>Загрузка карты...</div>
+          ) : (
+            <Map data={geoJsonData} />
+          )}
+        </main>
+      </div>
     </div>
   );
 }

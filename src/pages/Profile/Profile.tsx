@@ -1,48 +1,52 @@
-import { useState } from "react";
-import accountCircle from '../../shared/assets/icons/profile/account_circle.svg';
-import badgeLogin from '../../shared/assets/icons/profile/badgeLogin.svg';
-import call from '../../shared/assets/icons/profile/call.svg';
-import crown from '../../shared/assets/icons/profile/crown.svg';
-import key from '../../shared/assets/icons/profile/key.svg';
-import mail from '../../shared/assets/icons/profile/mail.svg';
-import edit from '../../shared/assets/icons/profile/edit.svg';
+import { useState } from 'react';
+import AccountCircle from '../../shared/assets/icons/profile/account_circle.svg?react';
+import BadgeLogin from '../../shared/assets/icons/profile/badge.svg?react';
+import Call from '../../shared/assets/icons/profile/call.svg?react';
+import Crown from '../../shared/assets/icons/profile/crown.svg?react';
+import Key from '../../shared/assets/icons/profile/key.svg?react';
+import Mail from '../../shared/assets/icons/profile/mail.svg?react';
+import Edit from '../../shared/assets/icons/profile/edit.svg?react';
 
-import { Header } from "@/shared/ui/Header";
-import style from "./Profile.module.scss";
+import { Header } from '@/shared/ui/Header';
+import style from './Profile.module.scss';
+import { ThemeToggle } from '@/shared/ui/ThemeToggle';
+import { useTheme } from '@/app/context/useTheme';
 
 const testUser = {
-  login: "SoumitroSobuj",
-  email: "sjdkdnckdk@gmail.com",
-  phoneNumber: "+79990003849",
-  password: "12345678",
+  login: 'SoumitroSobuj',
+  email: 'sjdkdnckdk@gmail.com',
+  phoneNumber: '+79990003849',
+  password: '12345678',
   subscription: true,
 };
 
 const fields = {
-  login: { label: "ЛОГИН", icon: badgeLogin },
-  email: { label: "ПОЧТА", icon: mail },
-  phoneNumber: { label: "НОМЕР ТЕЛЕФОНА", icon: call },
-  password: { label: "ПАРОЛЬ", icon: key },
-  subscription: { label: "ПОДПИСКА", icon: crown },
+  login: { label: 'ЛОГИН', icon: BadgeLogin },
+  email: { label: 'ПОЧТА', icon: Mail },
+  phoneNumber: { label: 'НОМЕР ТЕЛЕФОНА', icon: Call },
+  password: { label: 'ПАРОЛЬ', icon: Key },
+  subscription: { label: 'ПОДПИСКА', icon: Crown },
 };
 
-const STORAGE_KEY = "user_profile_name";
+const STORAGE_KEY = 'user_profile_name';
 
 export function Profile() {
+  const { theme } = useTheme();
+
   const [displayName, setDisplayName] = useState(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const saved = localStorage.getItem(STORAGE_KEY);
-      return saved || "Имя";
+      return saved || 'Имя';
     }
-    return "Имя";
+    return 'Имя';
   });
 
   const [isEditing, setIsEditing] = useState(false);
 
   const handleSave = () => {
     let finalName = displayName.trim();
-    if (finalName === "") {
-      finalName = "Имя";
+    if (finalName === '') {
+      finalName = 'Имя';
     }
     setDisplayName(finalName);
     localStorage.setItem(STORAGE_KEY, finalName);
@@ -56,7 +60,7 @@ export function Profile() {
   };
 
   return (
-    <>
+    <div className={style[theme]}>
       <div className={style.headerWrapper}>
         <Header title="Профиль" />
 
@@ -65,22 +69,21 @@ export function Profile() {
           onClick={() => setIsEditing(true)}
           title="Редактировать имя"
         >
-          {/* ЗАМЕНА: Иконка карандаша заменена на картинку edit */}
-          <img src={edit} className={style.editIcon} alt="edit" />
+          <Edit className={style.editIcon} />
         </button>
       </div>
 
       <section className={style.profileContainer}>
         <div className={style.topProfile}>
           <div className={style.avatarCircle}>
-            <img src={accountCircle} alt="Avatar" />
+            <AccountCircle />
           </div>
 
           {isEditing ? (
             <input
               className={style.nameInput}
               value={displayName}
-              onChange={(e) => setDisplayName(e.target.value)}
+              onChange={e => setDisplayName(e.target.value)}
               onBlur={handleSave}
               onKeyDown={handleKeyDown}
               autoFocus
@@ -103,19 +106,19 @@ export function Profile() {
             const fieldKey = key as keyof typeof fields;
             if (!fields[fieldKey]) return null;
 
-            const { label, icon } = fields[fieldKey];
+            const { label, icon: IconComponent } = fields[fieldKey];
 
             let displayValue: string | number = String(value);
-            if (key === "password") {
-              displayValue = "*".repeat(String(value).length);
-            } else if (key === "subscription") {
-              displayValue = value ? "активна" : "неактивна";
+            if (key === 'password') {
+              displayValue = '*'.repeat(String(value).length);
+            } else if (key === 'subscription') {
+              displayValue = value ? 'активна' : 'неактивна';
             }
 
             return (
               <li className={style.profileInfoItem} key={key}>
                 <div className={style.iconWrapper}>
-                  <img src={icon} className={style.icon} alt={label} />
+                  <IconComponent className={style.icon} />
                 </div>
                 <div className={style.textWrapper}>
                   <span className={style.label}>{label}</span>
@@ -126,6 +129,8 @@ export function Profile() {
           })}
         </ul>
       </section>
-    </>
+
+      <ThemeToggle />
+    </div>
   );
 }

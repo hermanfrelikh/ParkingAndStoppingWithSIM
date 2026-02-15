@@ -6,12 +6,14 @@ import { ParkingModal } from '@/widgets/ParkingModal/ParkingModal';
 import { useSearchParams, useNavigate } from 'react-router';
 import type { FeatureCollection, Point } from 'geojson';
 import type { ParkingUIModel } from '@/shared/types/parking';
+import { useTheme } from '@/app/context/useTheme';
 
 interface MapProps {
   data: FeatureCollection<Point, ParkingUIModel> | null;
 }
 
 export function Map({ data }: MapProps) {
+  const { theme } = useTheme();
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const [searchParams] = useSearchParams();
@@ -25,7 +27,10 @@ export function Map({ data }: MapProps) {
 
   // Храним data в рефе, чтобы доступ к ней внутри map.on('load') был всегда актуальным
   const dataRef = useRef(data);
-
+  const mapTheme =
+    theme === 'light'
+      ? 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'
+      : 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
   // Обновляем реф при изменении пропсов
   useEffect(() => {
     dataRef.current = data;
@@ -82,7 +87,7 @@ export function Map({ data }: MapProps) {
 
     const map = new maplibregl.Map({
       container: mapContainer.current!,
-      style: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
+      style: mapTheme,
       center: [37.6173, 55.7558],
       zoom: 10,
       attributionControl: false,
