@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router';
 import { Text } from '../Text';
 import style from './Header.module.scss';
 import { ArrowBackIcon } from '@/shared/assets/icons';
-import { useTheme } from '@/app/context/useTheme';
+import { useTheme } from '@/context/useTheme';
 
 interface HeaderProps {
   title: string;

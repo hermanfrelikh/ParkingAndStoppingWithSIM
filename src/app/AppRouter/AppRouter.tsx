@@ -1,21 +1,20 @@
-import { Authorization } from "@/pages/Authorization";
-import { Favorites } from "@/pages/Favorites";
-import { MainPage } from "@/pages/MainPage";
-import { NotFound } from "@/pages/NotFound";
-import { Profile } from "@/pages/Profile";
-import { Registration } from "@/pages/Registration";
-import { Route, Routes } from "react-router";
+import { Authorization } from '@/ui/pages/Authorization';
+import { Favorites } from '@/ui/pages/Favorites';
+import { MainPage } from '@/ui/pages/MainPage';
+import { NotFound } from '@/ui/pages/NotFound';
+import { Profile } from '@/ui/pages/Profile';
+import { Registration } from '@/ui/pages/Registration';
+import { Route, Routes } from 'react-router';
 
-
-export  function AppRouter() {
+export function AppRouter() {
   return (
     <Routes>
-      <Route path="/" element = {<MainPage />} />
-      <Route path="/favorites" element = {<Favorites />} />
-      <Route path="/registration" element = {<Registration />} />
-      <Route path="/authorization" element = {<Authorization />} />
-      <Route path="/profile" element = {<Profile />} />
-      <Route path="*" element = {<NotFound />} />
+      <Route path="/" element={<MainPage />} />
+      <Route path="/favorites" element={<Favorites />} />
+      <Route path="/registration" element={<Registration />} />
+      <Route path="/authorization" element={<Authorization />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
-  )
+  );
 }

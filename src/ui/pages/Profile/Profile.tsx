@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import AccountCircle from '../../shared/assets/icons/profile/account_circle.svg?react';
-import BadgeLogin from '../../shared/assets/icons/profile/badge.svg?react';
-import Call from '../../shared/assets/icons/profile/call.svg?react';
-import Crown from '../../shared/assets/icons/profile/crown.svg?react';
-import Key from '../../shared/assets/icons/profile/key.svg?react';
-import Mail from '../../shared/assets/icons/profile/mail.svg?react';
-import Edit from '../../shared/assets/icons/profile/edit.svg?react';
 
-import { Header } from '@/shared/ui/Header';
+import AccountCircle from '../../../shared/assets/icons/profile/account_circle.svg?react';
+import BadgeLogin from '../../../shared/assets/icons/profile/badge.svg?react';
+import Call from '../../../shared/assets/icons/profile/call.svg?react';
+import Crown from '../../../shared/assets/icons/profile/crown.svg?react';
+import Key from '../../../shared/assets/icons/profile/key.svg?react';
+import Mail from '../../../shared/assets/icons/profile/mail.svg?react';
+import Edit from '../../../shared/assets/icons/profile/edit.svg?react';
+
+import { Header } from '@/ui/components/Header';
 import style from './Profile.module.scss';
-import { ThemeToggle } from '@/shared/ui/ThemeToggle';
-import { useTheme } from '@/app/context/useTheme';
+import { ThemeToggle } from '@/ui/components/ThemeToggle';
 
 const testUser = {
   login: 'SoumitroSobuj',
@@ -31,8 +31,6 @@ const fields = {
 const STORAGE_KEY = 'user_profile_name';
 
 export function Profile() {
-  const { theme } = useTheme();
-
   const [displayName, setDisplayName] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -60,7 +58,7 @@ export function Profile() {
   };
 
   return (
-    <div className={style[theme]}>
+    <div>
       <div className={style.headerWrapper}>
         <Header title="Профиль" />
 

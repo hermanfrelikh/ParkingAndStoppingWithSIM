@@ -2,8 +2,8 @@
 import { useEffect, useState } from 'react';
 import { useFavorites } from '@/shared/lib/useFavorites';
 import styles from './ParkingModal.module.scss';
-import { ToggleButton } from '@/shared/ui/ToggleButton';
-import { ParkingSpaces } from '@/shared/ui/ParkingSpaces';
+import { ToggleButton } from '@/ui/components/ToggleButton';
+import { ParkingSpaces } from '@/ui/components/ParkingSpaces';
 import { IsFavoritesFilledIcon, IsFavoritesIcon } from '@/shared/assets/icons';
 import type { ParkingUIModel } from '@/shared/types/parking';
 import { parkingApi } from '@/shared/api/parkings';
@@ -16,9 +16,16 @@ interface ParkingModalProps {
   initialData?: ParkingUIModel | null; // Предзагруженные данные с карты
 }
 
-export function ParkingModal({ isOpen, onClose, parkingId, initialData }: ParkingModalProps) {
+export function ParkingModal({
+  isOpen,
+  onClose,
+  parkingId,
+  initialData,
+}: ParkingModalProps) {
   // Используем initialData как начальное состояние, если они есть
-  const [parkingData, setParkingData] = useState<ParkingUIModel | null>(initialData || null);
+  const [parkingData, setParkingData] = useState<ParkingUIModel | null>(
+    initialData || null
+  );
   const [loading, setLoading] = useState(false);
 
   const { toggleFavorite, isFavorite } = useFavorites();
@@ -67,7 +74,7 @@ export function ParkingModal({ isOpen, onClose, parkingId, initialData }: Parkin
       // (превращаем число occupied в строку, чтобы избежать ошибок типизации)
       const legacyItem = {
         ...parkingData,
-        occupied: String(parkingData.occupied)
+        occupied: String(parkingData.occupied),
       };
 
       toggleFavorite(legacyItem as any);
@@ -80,7 +87,7 @@ export function ParkingModal({ isOpen, onClose, parkingId, initialData }: Parkin
   if (loading && !parkingData) {
     return (
       <div className={styles.overlay} onClick={onClose}>
-        <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.modal} onClick={e => e.stopPropagation()}>
           <div className={styles.content}>
             <p>Загрузка данных...</p>
           </div>
@@ -98,7 +105,7 @@ export function ParkingModal({ isOpen, onClose, parkingId, initialData }: Parkin
 
   return (
     <div className={styles.overlay} onClick={onClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+      <div className={styles.modal} onClick={e => e.stopPropagation()}>
         <div className={styles.dragHandle} onClick={onClose} />
 
         <div className={styles.content}>
@@ -109,7 +116,7 @@ export function ParkingModal({ isOpen, onClose, parkingId, initialData }: Parkin
           <ParkingSpaces parkingOccupied={occupiedString} />
 
           <div className={styles.description}>
-            <p>{parkingData.commentary || "Описание временно отсутствует."}</p>
+            <p>{parkingData.commentary || 'Описание временно отсутствует.'}</p>
           </div>
         </div>
 

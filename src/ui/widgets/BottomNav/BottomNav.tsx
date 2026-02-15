@@ -1,8 +1,12 @@
-import { FavoritesIcon, HomeIcon, ProfileIcon } from '@/shared/assets/icons';
+import {
+  FavoritesIcon,
+  HomeIcon,
+  ProfileIcon,
+} from '../../../shared/assets/icons';
 import style from './BottomNav.module.scss';
 import { useLocation, useNavigate } from 'react-router';
-import { Text } from '@/shared/ui/Text';
-import { useTheme } from '@/app/context/useTheme';
+import { Text } from '@/ui/components/Text';
+import { useTheme } from '@/context/useTheme';
 
 const navItems = {
   main: { label: 'Главная', icon: HomeIcon, link: '/' },

@@ -151,30 +151,3 @@
     word-break: break-word;
   }
 }
-
-.dark {
-  .headerWrapper {
-    background: var(--color-bg-dark);
-  }
-  .profileContainer {
-    background: var(--color-bg-dark);
-  }
-
-  .iconWrapper .icon,
-  .editIcon {
-    fill: red !important;
-  }
-
-  .mainName,
-  .label {
-    color: #ffffff !important;
-  }
-
-  .value {
-    color: #cccccc !important;
-  }
-
-  .avatarCircle {
-    border-color: #ffffff !important;
-  }
-}

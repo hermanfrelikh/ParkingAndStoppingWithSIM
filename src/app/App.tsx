@@ -1,6 +1,6 @@
 import { BrowserRouter } from 'react-router';
 import { AppRouter } from './AppRouter';
-import { BottomNav } from '@/widgets/BottomNav/BottomNav';
+import { BottomNav } from '@/ui/widgets/BottomNav/BottomNav';
 import { ThemeProvider } from '@/app/context/ThemeProvider';
 
 function App() {

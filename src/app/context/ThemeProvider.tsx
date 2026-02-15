@@ -1,4 +1,3 @@
-// context/ThemeProvider.tsx
 import {
   ThemeContext,
   type Theme,
@@ -23,9 +22,9 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
-  // Сохраняем тему в localStorage при изменении
   useEffect(() => {
     localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
   const value: ThemeContextType = { theme, toggleTheme };

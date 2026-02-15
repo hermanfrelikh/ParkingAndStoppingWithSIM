@@ -2,11 +2,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { ParkingModal } from '@/widgets/ParkingModal/ParkingModal';
+import { ParkingModal } from '@/ui/widgets/ParkingModal/ParkingModal';
 import { useSearchParams, useNavigate } from 'react-router';
 import type { FeatureCollection, Point } from 'geojson';
 import type { ParkingUIModel } from '@/shared/types/parking';
-import { useTheme } from '@/app/context/useTheme';
+import { useTheme } from '@/context/useTheme';
 
 interface MapProps {
   data: FeatureCollection<Point, ParkingUIModel> | null;

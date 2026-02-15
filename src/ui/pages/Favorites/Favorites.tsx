@@ -1,12 +1,11 @@
-
-import { Header } from '@/shared/ui/Header/Header';
+import { Header } from '@/ui/components/Header/Header';
 import { useFavorites, type ParkingItem } from '@/shared/lib/useFavorites';
 import { useNavigate } from 'react-router';
 import styles from './Favorites.module.scss';
-import { Text } from '@/shared/ui/Text';
-import { ParkingSpaces } from '@/shared/ui/ParkingSpaces';
-import { StaticButton } from '@/shared/ui/StaticButton';
-import { ToggleButton } from '@/shared/ui/ToggleButton/ToggleButton';
+import { Text } from '@/ui/components/Text';
+import { ParkingSpaces } from '@/ui/components/ParkingSpaces';
+import { StaticButton } from '@/ui/components/StaticButton';
+import { ToggleButton } from '@/ui/components/ToggleButton/ToggleButton';
 import { IsFavoritesFilledIcon, IsFavoritesIcon } from '@/shared/assets/icons';
 
 export function Favorites() {
@@ -41,7 +40,13 @@ export function Favorites() {
                 <ParkingSpaces parkingOccupied={parking.occupied} />
               </div>
 
-              <div style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  gap: '10px',
+                  flexDirection: 'column',
+                }}
+              >
                 <StaticButton
                   text="Перейти к парковке"
                   onClick={() => handleGoTo(parking.id)}

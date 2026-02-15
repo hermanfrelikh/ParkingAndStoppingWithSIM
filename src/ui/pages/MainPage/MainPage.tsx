@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Map } from '@/shared/ui/Map/Map';
+import { Map } from '@/ui/components/Map/Map';
 import { parkingApi } from '@/shared/api/parkings';
 import { mapDtoToModel, mapToGeoJson } from '@/shared/lib/parkingAdapter';
 import type { FeatureCollection, Point } from 'geojson';
 import type { ParkingUIModel } from '@/shared/types/parking';
 import style from './MainPage.module.scss';
-import { useTheme } from '@/app/context/useTheme';
+
 export function MainPage() {
-  const { theme } = useTheme();
   // ИСПРАВЛЕНИЕ: Явно указываем типы Point и ParkingUIModel
   const [geoJsonData, setGeoJsonData] = useState<FeatureCollection<
     Point,
@@ -35,16 +34,10 @@ export function MainPage() {
   }, []);
 
   return (
-    <div className={style[theme]}>
-      <div className={style.mainPage}>
-        <main style={{ flex: 1, position: 'relative' }}>
-          {isLoading ? (
-            <div>Загрузка карты...</div>
-          ) : (
-            <Map data={geoJsonData} />
-          )}
-        </main>
-      </div>
+    <div className={style.mainPage}>
+      <main style={{ flex: 1, position: 'relative' }}>
+        {isLoading ? <div>Загрузка карты...</div> : <Map data={geoJsonData} />}
+      </main>
     </div>
   );
 }
