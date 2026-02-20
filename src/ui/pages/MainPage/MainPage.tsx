@@ -5,6 +5,8 @@ import { mapDtoToModel, mapToGeoJson } from '@/shared/lib/parkingAdapter';
 import type { FeatureCollection, Point } from 'geojson';
 import type { ParkingUIModel } from '@/shared/types/parking';
 import style from './MainPage.module.scss';
+import { mockParking } from '@/shared/data/parkingData';
+
 
 export function MainPage() {
   // ИСПРАВЛЕНИЕ: Явно указываем типы Point и ParkingUIModel
@@ -17,10 +19,15 @@ export function MainPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await parkingApi.getAll();
-        const models = data.map(mapDtoToModel);
+        if (import.meta.env.VITE_USE_MOCK === 'true') {
+          setGeoJsonData(mockParking as any);
+          return;
+        }
 
-        // Теперь mapToGeoJson возвращает данные, совместимые со стейтом
+        const data = await parkingApi.getAll();
+        if (!data) return;
+
+        const models = data.map(mapDtoToModel);
         const geoJson = mapToGeoJson(models);
         setGeoJsonData(geoJson);
       } catch (error) {
@@ -32,6 +39,7 @@ export function MainPage() {
 
     fetchData();
   }, []);
+
 
   return (
     <div className={style.mainPage}>
