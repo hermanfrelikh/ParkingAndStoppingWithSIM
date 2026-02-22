@@ -7,7 +7,7 @@
   align-items: center;
 
   &Title {
-    color: #808080;
+    color: var(--color-text-secondary);
     display: flex;
     align-items: center;
 
@@ -20,5 +20,17 @@
     width: 24px;
     height: 24px;
     margin-right: 8px;
+    color: var(--color-text-secondary);
+  }
+}
+
+.dark {
+  .header {
+    &Title {
+      color: var(--color-primary);
+    }
+    &BackButton {
+      color: var(--color-primary);
+    }
   }
 }

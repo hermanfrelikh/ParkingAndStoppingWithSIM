@@ -10,7 +10,6 @@ import Edit from '../../../shared/assets/icons/profile/edit.svg?react';
 
 import { Header } from '@/ui/components/Header';
 import style from './Profile.module.scss';
-import { ThemeToggle } from '@/ui/components/ThemeToggle';
 
 const testUser = {
   login: 'SoumitroSobuj',
@@ -127,8 +126,6 @@ export function Profile() {
           })}
         </ul>
       </section>
-
-      <ThemeToggle />
     </div>
   );
 }

@@ -1,0 +1,12 @@
+.settingsCard {
+  margin: 20px;
+  padding: 10px 0;
+
+  &Item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 20px;
+    color: var(--color-text-secondary);
+  }
+}

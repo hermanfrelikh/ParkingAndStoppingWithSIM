@@ -1,11 +1,8 @@
 import { useTheme } from '@/app/theme/useTheme';
+import { Switch } from '@/ui/components/Switch';
 
 export const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
 
-  return (
-    <button onClick={toggleTheme}>
-      {theme === 'light' ? '🌙 Тёмная тема' : '☀️ Светлая тема'}
-    </button>
-  );
+  return <Switch onChange={() => toggleTheme()} checked={theme === 'dark'} />;
 };

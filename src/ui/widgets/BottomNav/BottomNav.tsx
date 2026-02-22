@@ -2,16 +2,19 @@ import {
   FavoritesIcon,
   HomeIcon,
   ProfileIcon,
+  SettingsIcon,
 } from '../../../shared/assets/icons';
 import style from './BottomNav.module.scss';
 import { useLocation, useNavigate } from 'react-router';
 import { Text } from '@/ui/components/Text';
 import { useTheme } from '@/app/theme/useTheme';
+import LiquidGlassCard from '@/ui/components/LiquidGlassCard/LiquidGlassCard';
 
 const navItems = {
   main: { label: 'Главная', icon: HomeIcon, link: '/' },
   favorites: { label: 'Избранное', icon: FavoritesIcon, link: '/favorites' },
   profile: { label: 'Профиль', icon: ProfileIcon, link: '/profile' },
+  settings: { label: 'Настройки', icon: SettingsIcon, link: '/settings' },
 };
 
 export function BottomNav() {
@@ -24,7 +27,7 @@ export function BottomNav() {
 
   return (
     <div className={style[theme]}>
-      <nav className={style.nav}>
+      <LiquidGlassCard as="nav" className={style.nav}>
         {Object.entries(navItems).map(([key, item]) => {
           const isActive = location.pathname === item.link;
 
@@ -48,7 +51,7 @@ export function BottomNav() {
             </button>
           );
         })}
-      </nav>
+      </LiquidGlassCard>
     </div>
   );
 }
