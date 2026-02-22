@@ -1,0 +1,51 @@
+.blueButton {
+    width: 100%;
+    padding: 14px 20px;
+    background: #007BFF;
+    border: none;
+    border-radius: 16px;
+    color: white;
+    font-size: var(--fs-body);
+    line-height: var(--lh-normal);
+    // font-weight: 600;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    transition: all 0.2s ease;
+}
+
+.blueButton:hover {
+    opacity: 0.9;
+}
+
+.blueButton:active {
+    transform: scale(0.98);
+}
+
+.blueButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.text {
+    flex: 1;
+    text-align: center;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+
+    // font-size: var(--fs-body);
+
+    // margin-left: 12px;
+}
+
+.icon svg {
+    width: 15px;
+    height: 15px;
+    // stroke: white;
+}
