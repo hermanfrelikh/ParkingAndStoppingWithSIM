@@ -1,7 +1,6 @@
 import {
   FavoritesIcon,
   HomeIcon,
-  ProfileIcon,
   SettingsIcon,
 } from '../../../shared/assets/icons';
 import style from './BottomNav.module.scss';
@@ -13,7 +12,6 @@ import LiquidGlassCard from '@/ui/components/LiquidGlassCard/LiquidGlassCard';
 const navItems = {
   main: { label: 'Главная', icon: HomeIcon, link: '/' },
   favorites: { label: 'Избранное', icon: FavoritesIcon, link: '/favorites' },
-  profile: { label: 'Профиль', icon: ProfileIcon, link: '/profile' },
   settings: { label: 'Настройки', icon: SettingsIcon, link: '/settings' },
 };
 

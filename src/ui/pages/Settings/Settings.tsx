@@ -7,12 +7,23 @@ import { Switch } from '@/ui/components/Switch';
 import LiquidGlassCard from '@/ui/components/LiquidGlassCard/LiquidGlassCard';
 import { BlueButton } from '@/ui/components/BlueButton/BlueButton';
 import ArrowIcon from '@/shared/assets/icons/ButtonArrow.svg?react';
+import { useState } from 'react';
 
 export function Settings() {
   const { theme } = useTheme();
+  const [showPassword, setShowPassword] = useState(false);
+  const password = 'SoumitroSobuj';
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <div className={style[theme]}>
       <Header title="Настройки" />
+      <div style={{ marginTop: '20px' }}></div>
+      <Text className={style.settingsCardTitle} variant="body">
+        Интрерфейс
+      </Text>
       <LiquidGlassCard className={style.settingsCard}>
         <div className={style.settingsCardItem}>
           <Text variant="body">Тёмная тема</Text>
@@ -31,18 +42,48 @@ export function Settings() {
           <Switch />
         </div>
       </LiquidGlassCard>
+
+      <Text className={style.settingsCardTitle} variant="body">
+        Личные данные
+      </Text>
+      <LiquidGlassCard className={style.settingsCard}>
+        <div className={style.settingsCardItem}>
+          <div className={style.personData}>
+            <Text variant="body">Логин</Text>
+            <p>SoumitroSobuj</p>
+          </div>
+        </div>
+        <div className={style.settingsCardItem}>
+          <div className={style.personData}>
+            <p>Пароль</p>
+            <div className={style.passwordWrapper}>
+              <p className={style.passwordText}>
+                {showPassword ? password : '••••••••••'}
+              </p>
+              <button
+                className={style.showPasswordButton}
+                onClick={togglePasswordVisibility}
+                type="button"
+              >
+                {showPassword ? 'Скрыть' : 'Показать'}
+              </button>
+            </div>
+          </div>
+        </div>
+      </LiquidGlassCard>
+      <span className={style.supportTextChangePassword}>Изменить пароль</span>
       <div className={style.additionalButton}>
         <div className={style.errorAndInfoButtons}>
           <BlueButton Icon={ArrowIcon}>Сообщить об ошибке</BlueButton>
           <BlueButton Icon={ArrowIcon}>О поиложении</BlueButton>
-
         </div>
         <div className={style.supportButton}>
-          <span className={style.supportText}>Возникли трудности? Обратитесь в поддержку</span>
+          <span className={style.supportText}>
+            Возникли трудности? Обратитесь в поддержку
+          </span>
           <BlueButton Icon={ArrowIcon}>Поддержка</BlueButton>
         </div>
       </div>
     </div>
-
   );
 }
