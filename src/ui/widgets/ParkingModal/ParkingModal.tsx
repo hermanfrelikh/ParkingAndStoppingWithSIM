@@ -43,8 +43,8 @@ export function ParkingModal({
       const loadDetails = async () => {
         setLoading(true);
         try {
-          const dto = await parkingApi.getById(parkingId);
-          setParkingData(mapDtoToModel(dto));
+          // const dto = await parkingApi.getById(parkingId);
+          // setParkingData(mapDtoToModel(dto));
         } catch (e) {
           console.error('Ошибка при загрузке деталей парковки:', e);
         } finally {
