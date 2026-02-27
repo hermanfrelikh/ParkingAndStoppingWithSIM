@@ -6,7 +6,7 @@ import { Text } from '@/ui/components/Text';
 import { Switch } from '@/ui/components/Switch';
 import LiquidGlassCard from '@/ui/components/LiquidGlassCard/LiquidGlassCard';
 import { BlueButton } from '@/ui/components/BlueButton/BlueButton';
-import ArrowIcon from '@/shared/assets/icons/ButtonArrow.svg?react';
+import ArrowIcon from '@/shared/assets/icons/buttonArrow.svg?react';
 import { useState } from 'react';
 import { NotShowEyeIcon, ShowEyeIcon } from '@/shared/assets/icons';
 
