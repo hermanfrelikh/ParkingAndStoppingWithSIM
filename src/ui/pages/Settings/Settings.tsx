@@ -8,6 +8,7 @@ import LiquidGlassCard from '@/ui/components/LiquidGlassCard/LiquidGlassCard';
 import { BlueButton } from '@/ui/components/BlueButton/BlueButton';
 import ArrowIcon from '@/shared/assets/icons/ButtonArrow.svg?react';
 import { useState } from 'react';
+import { NotShowEyeIcon, ShowEyeIcon } from '@/shared/assets/icons';
 
 export function Settings() {
   const { theme } = useTheme();
@@ -65,19 +66,23 @@ export function Settings() {
                 onClick={togglePasswordVisibility}
                 type="button"
               >
-                {showPassword ? 'Скрыть' : 'Показать'}
+                {showPassword ? <ShowEyeIcon /> : <NotShowEyeIcon />}
               </button>
             </div>
           </div>
         </div>
       </LiquidGlassCard>
       <span className={style.supportTextChangePassword}>Изменить пароль</span>
+      <LiquidGlassCard className={style.subscription}>
+        <p className={style.subscriptionTitle}>ПОДПИСКА</p>
+        <span>активна</span>
+      </LiquidGlassCard>
       <div className={style.additionalButton}>
         <div className={style.errorAndInfoButtons}>
           <BlueButton Icon={ArrowIcon}>Сообщить об ошибке</BlueButton>
           <BlueButton Icon={ArrowIcon}>О поиложении</BlueButton>
         </div>
-        <div className={style.supportButton}>
+        <div style={{ marginBottom: '70px' }} className={style.supportButton}>
           <span className={style.supportText}>
             Возникли трудности? Обратитесь в поддержку
           </span>

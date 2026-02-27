@@ -10,3 +10,5 @@ export { default as FavoritesIcon } from './favorites.svg?react';
 export { default as IsFavoritesFilledIcon } from './is-favorites-filled.svg?react';
 export { default as IsFavoritesIcon } from './is-favorites.svg?react';
 export { default as SettingsIcon } from './settings.svg?react';
+export { default as NotShowEyeIcon } from './not-show-eye.svg?react';
+export { default as ShowEyeIcon } from './show-eye.svg?react';

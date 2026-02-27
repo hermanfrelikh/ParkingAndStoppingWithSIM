@@ -43,16 +43,6 @@
   color: var(--color-primary, #007aff);
 
   cursor: pointer;
-
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: var(--color-hover, rgba(0, 122, 255, 0.1));
-  }
-
-  &:active {
-    background-color: var(--color-active, rgba(0, 122, 255, 0.2));
-  }
 }
 
 .passwordWrapper {
@@ -104,4 +94,19 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.subscription {
+  margin: 0 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  color: var(--color-text-secondary);
+
+  &Title {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
 }
