@@ -9,8 +9,10 @@ import { BlueButton } from '@/ui/components/BlueButton/BlueButton';
 import ArrowIcon from '@/shared/assets/icons/buttonArrow.svg?react';
 import { useState } from 'react';
 import { NotShowEyeIcon, ShowEyeIcon } from '@/shared/assets/icons';
+import { ChangePasswordModal } from '@/ui/components/ChangePasswordModal/ChangePasswordModal';
 
 export function Settings() {
+  const [isPasswordModalOpen, setPasswordModalOpen] = useState(false);
   const { theme } = useTheme();
   const [showPassword, setShowPassword] = useState(false);
   const password = 'SoumitroSobuj';
@@ -72,7 +74,12 @@ export function Settings() {
           </div>
         </div>
       </LiquidGlassCard>
-      <span className={style.supportTextChangePassword}>Изменить пароль</span>
+      <span
+        className={style.supportTextChangePassword}
+        onClick={() => setPasswordModalOpen(true)}
+      >
+        Изменить пароль
+      </span>
       <LiquidGlassCard className={style.subscription}>
         <p className={style.subscriptionTitle}>ПОДПИСКА</p>
         <span>активна</span>
@@ -89,6 +96,16 @@ export function Settings() {
           <BlueButton Icon={ArrowIcon}>Поддержка</BlueButton>
         </div>
       </div>
+      <ChangePasswordModal
+        open={isPasswordModalOpen}
+        variant="glass"
+        onClose={() => setPasswordModalOpen(false)}
+        onSubmit={(newPassword) => {
+          console.log('Новый пароль:', newPassword);
+
+        }
+        }
+      />
     </div>
   );
 }

@@ -1,0 +1,49 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    // backdrop-filter: blur(4px);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 3000;
+    animation: fadeIn 0.2s ease;
+}
+
+.sheet {
+    width: 100%;
+    max-width: 500px;
+    background: var(--color-bg);
+    color: var(--color-text-primary);
+    border-radius: 24px 24px 0 0;
+    padding: 20px 20px 30px;
+    animation: slideUp 0.3s ease;
+}
+
+.handle {
+    width: 40px;
+    height: 5px;
+    background: rgba(150, 150, 150, 0.6);
+    border-radius: 10px;
+    margin: 0 auto 15px auto;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
