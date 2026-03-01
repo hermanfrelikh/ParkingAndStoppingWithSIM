@@ -5,7 +5,7 @@ import { ArrowBackIcon } from '@/shared/assets/icons';
 import { useTheme } from '@/app/theme/useTheme';
 
 interface HeaderProps {
-  title: string;
+  title?: string;
 }
 
 export function Header({ title }: HeaderProps) {

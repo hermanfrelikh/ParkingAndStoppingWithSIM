@@ -7,6 +7,7 @@ import { ParkingSpaces } from '@/ui/components/ParkingSpaces';
 import { StaticButton } from '@/ui/components/StaticButton';
 import { ToggleButton } from '@/ui/components/ToggleButton/ToggleButton';
 import { IsFavoritesFilledIcon, IsFavoritesIcon } from '@/shared/assets/icons';
+import { NoFavoritesCard } from '@/ui/components/NoFavoritesCard';
 
 export function Favorites() {
   const { favorites, removeFromFavorites } = useFavorites();
@@ -25,9 +26,7 @@ export function Favorites() {
       <Header title="Избранные" />
 
       {favorites.length === 0 ? (
-        <div>
-          <p>Нет избранных парковок</p>
-        </div>
+        <NoFavoritesCard />
       ) : (
         <ul className={styles.favoritesList}>
           {favorites.toReversed().map((parking: ParkingItem) => (
