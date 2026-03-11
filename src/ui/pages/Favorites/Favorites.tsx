@@ -8,6 +8,7 @@ import { StaticButton } from '@/ui/components/StaticButton';
 import { ToggleButton } from '@/ui/components/ToggleButton/ToggleButton';
 import { IsFavoritesFilledIcon, IsFavoritesIcon } from '@/shared/assets/icons';
 import { NoFavoritesCard } from '@/ui/components/NoFavoritesCard';
+import LiquidGlassCard from '@/ui/components/LiquidGlassCard/LiquidGlassCard';
 
 export function Favorites() {
   const { favorites, removeFromFavorites } = useFavorites();
@@ -30,12 +31,17 @@ export function Favorites() {
       ) : (
         <ul className={styles.favoritesList}>
           {favorites.toReversed().map((parking: ParkingItem) => (
-            <li key={parking.id} className={styles.favoritesItem}>
+            <LiquidGlassCard
+              as="li"
+              key={parking.id}
+              className={styles.favoritesItem}
+            >
               <div className={styles.favoritesInfo}>
                 <Text variant="h3">{parking.name_obj}</Text>
                 <Text className={styles.favoritesAddress} variant="h4">
                   {parking.name_raion}
                 </Text>
+
                 <ParkingSpaces parkingOccupied={parking.occupied} />
               </div>
 
@@ -61,7 +67,7 @@ export function Favorites() {
                   className={styles.customToggleButton}
                 />
               </div>
-            </li>
+            </LiquidGlassCard>
           ))}
         </ul>
       )}

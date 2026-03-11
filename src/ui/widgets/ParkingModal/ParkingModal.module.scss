@@ -1,39 +1,52 @@
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+// .overlay {
+//   position: fixed;
+//   inset: 0;
+//   // background: rgba(0, 0, 0, 0.4);
+//   display: flex;
+//   justify-content: center;
+//   align-items: flex-end;
+//   z-index: 2147483647;
+//   top: 0px;
+// }
+
+// .modal {
+//   width: 100%;
+//   max-width: 400px;
+//   max-height: 80vh;
+//   border-radius: 16px 16px 0 0;
+//   display: flex;
+//   flex-direction: column;
+//   // overflow: hidden;
+//   margin-bottom: 70px;
+//   align-items: center;
+//   margin-bottom: 0px;
+// }
+
+// .dragHandle {
+//   width: 40px;
+//   height: 4px;
+//   background: #ccc;
+//   border-radius: 2px;
+//   margin: 12px auto;
+//   cursor: pointer;
+// }
+.actions {
   display: flex;
   justify-content: center;
-  align-items: flex-end; 
-  z-index: 2147483647;
-  top: 0px;
 }
 
-.modal {
-  width: 100%;
-  max-width: 400px;
-  max-height: 80vh;
-  background: white;
-  border-radius: 16px 16px 0 0;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  margin-bottom: 70px;
-  align-items: center;
-  margin-bottom: 0px;
-}
-
-.dragHandle {
-  width: 40px;
-  height: 4px;
-  background: #ccc;
-  border-radius: 2px;
-  margin: 12px auto;
-  cursor: pointer;
+.modalContainer {
+  // width: 50%;
+  max-width: 450px;
 }
 
 .content {
-  padding: 0 20px 20px;
+  // width: 100%;
+  // padding: 0 20px 20px;
+  // position: relative;
+  // display: flex;
+  // align-items: center;
+  text-align: justify;
   overflow-y: auto;
 }
 
@@ -45,6 +58,7 @@
 
 .content p {
   margin: 8px 0;
-  color: #333;
+  // color: #333;
+  // color: var(--color-text-primary);
   font-size: 14px;
 }

@@ -197,6 +197,7 @@ export function Map({ data }: MapProps) {
         onClose={closeModal}
         parkingId={selectedParking?.id || null}
         initialData={selectedParking}
+        variant="glass"
       />
     </>
   );

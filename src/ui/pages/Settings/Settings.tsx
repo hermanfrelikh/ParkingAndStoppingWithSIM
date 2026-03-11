@@ -25,7 +25,7 @@ export function Settings() {
       <Header title="Настройки" />
       <div style={{ marginTop: '20px' }}></div>
       <Text className={style.settingsCardTitle} variant="body">
-        Интрерфейс
+        Интерфейс
       </Text>
       <LiquidGlassCard className={style.settingsCard}>
         <div className={style.settingsCardItem}>
@@ -87,7 +87,7 @@ export function Settings() {
       <div className={style.additionalButton}>
         <div className={style.errorAndInfoButtons}>
           <BlueButton Icon={ArrowIcon}>Сообщить об ошибке</BlueButton>
-          <BlueButton Icon={ArrowIcon}>О поиложении</BlueButton>
+          <BlueButton Icon={ArrowIcon}>О приложении</BlueButton>
         </div>
         <div style={{ marginBottom: '70px' }} className={style.supportButton}>
           <span className={style.supportText}>

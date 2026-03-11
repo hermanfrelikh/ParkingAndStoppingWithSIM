@@ -5,21 +5,18 @@ import { mockParking } from '@/shared/data/parkingData';
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: 'https://backend-c6pd.onrender.com',
 });
 
 export const parkingApi = {
   getAll: async (): Promise<ParkingDTO[] | null> => {
     if (USE_MOCK) {
       console.log('📦 Using MOCK GeoJSON');
-      return null; // DTO не возвращаем
+      return null;
     }
 
-    const { data } = await api.get<ParkingDTO[]>('/parkings/all');
-    return data;
-  },
+    const { data } = await api.get<ParkingDTO[]>('/api/parkings/all');
 
-  getMockGeoJson: () => {
-    return mockParking;
+    return data;
   },
 };

@@ -1,5 +1,8 @@
 // src/widgets/ParkingModal/ParkingModal.tsx
+
 import { useEffect, useState } from 'react';
+import { BaseModal } from '@/ui/components/BaseModal/BaseModal'; // ⭐ ДОБАВЛЕНО
+import { GlassModal } from '@/ui/components/GlassModal/GlassModal'; // ⭐ ДОБАВЛЕНО
 import { useFavorites } from '@/shared/lib/useFavorites';
 import styles from './ParkingModal.module.scss';
 import { ToggleButton } from '@/ui/components/ToggleButton';
@@ -13,7 +16,8 @@ interface ParkingModalProps {
   isOpen: boolean;
   onClose: () => void;
   parkingId: number | null;
-  initialData?: ParkingUIModel | null; // Предзагруженные данные с карты
+  initialData?: ParkingUIModel | null;
+  variant?: 'default' | 'glass'; // ⭐ ДОБАВЛЕНО
 }
 
 export function ParkingModal({
@@ -21,27 +25,31 @@ export function ParkingModal({
   onClose,
   parkingId,
   initialData,
+  variant = 'glass', // ⭐ ДОБАВЛЕНО
 }: ParkingModalProps) {
-  // Используем initialData как начальное состояние, если они есть
+
+  // ⭐ ДОБАВЛЕНО (выбор модалки)
+  const ModalComponent = variant === 'glass' ? GlassModal : BaseModal;
+
   const [parkingData, setParkingData] = useState<ParkingUIModel | null>(
     initialData || null
   );
+
   const [loading, setLoading] = useState(false);
 
   const { toggleFavorite, isFavorite } = useFavorites();
 
-  // Синхронизируем стейт, если initialData изменился (например, кликнули на другую парковку)
   useEffect(() => {
     if (initialData) {
       setParkingData(initialData);
     }
   }, [initialData]);
 
-  // Загрузка детальных данных при открытии по ID (если данных с карты недостаточно или нужно обновить)
   useEffect(() => {
     if (isOpen && parkingId && !initialData) {
       const loadDetails = async () => {
         setLoading(true);
+
         try {
           // const dto = await parkingApi.getById(parkingId);
           // setParkingData(mapDtoToModel(dto));
@@ -51,18 +59,20 @@ export function ParkingModal({
           setLoading(false);
         }
       };
+
       loadDetails();
     }
   }, [isOpen, parkingId, initialData]);
 
-  // Обработка закрытия по клавише Esc
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
+
     if (isOpen) {
       window.addEventListener('keydown', handleEsc);
     }
+
     return () => {
       window.removeEventListener('keydown', handleEsc);
     };
@@ -70,8 +80,6 @@ export function ParkingModal({
 
   const handleToggleFavorite = () => {
     if (parkingData) {
-      // Адаптируем данные под старый интерфейс ParkingItem, который ожидает useFavorites
-      // (превращаем число occupied в строку, чтобы избежать ошибок типизации)
       const legacyItem = {
         ...parkingData,
         occupied: String(parkingData.occupied),
@@ -81,56 +89,59 @@ export function ParkingModal({
     }
   };
 
-  if (!isOpen) return null;
+  if (!parkingData && !loading) return null;
 
-  // Состояние загрузки
-  if (loading && !parkingData) {
-    return (
-      <div className={styles.overlay} onClick={onClose}>
-        <div className={styles.modal} onClick={e => e.stopPropagation()}>
-          <div className={styles.content}>
-            <p>Загрузка данных...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const isActive = parkingData ? isFavorite(parkingData.id) : false;
 
-  if (!parkingData) return null;
-
-  const isActive = isFavorite(parkingData.id);
-
-  // Формируем строку для компонента ParkingSpaces (если он ждет формат "число/число")
-  const occupiedString = `${parkingData.occupied}/100`;
+  const occupiedString = parkingData
+    ? `${parkingData.occupied}/100`
+    : '0/0';
 
   return (
-    <div className={styles.overlay} onClick={onClose}>
-      <div className={styles.modal} onClick={e => e.stopPropagation()}>
-        <div className={styles.dragHandle} onClick={onClose} />
+    <ModalComponent className={styles.modalContainer} open={isOpen} onClose={onClose}> {/* ⭐ ИЗМЕНЕНО */}
 
+      {loading && !parkingData && (
         <div className={styles.content}>
-          <h2>{parkingData.name_obj}</h2>
-          <p className={styles.type}>Тип: {parkingData.vid}</p>
-          <p className={styles.district}>Район: {parkingData.district}</p>
+          <p>Загрузка данных...</p>
+        </div>
+      )}
 
-          <ParkingSpaces parkingOccupied={occupiedString} />
+      {parkingData && (
+        <>
+          <div className={styles.content}>
+            <h2>{parkingData.name_obj}</h2>
 
-          <div className={styles.description}>
-            <p>{parkingData.commentary || 'Описание временно отсутствует.'}</p>
+            <p className={styles.type}>
+              Тип: {parkingData.vid}
+            </p>
+
+            <p className={styles.district}>
+              Район: {parkingData.district}
+            </p>
+
+            <ParkingSpaces parkingOccupied={occupiedString} />
+
+            <div className={styles.description}>
+              <p>
+                {parkingData.commentary ||
+                  'Описание временно отсутствует.'}
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div className={styles.actions}>
-          <ToggleButton
-            isActive={isActive}
-            inactiveText="Добавить в избранное"
-            activeText="Убрать из избранного"
-            inactiveIcon={<IsFavoritesIcon />}
-            activeIcon={<IsFavoritesFilledIcon />}
-            onClick={handleToggleFavorite}
-          />
-        </div>
-      </div>
-    </div>
+          <div className={styles.actions}>
+            <ToggleButton
+              isActive={isActive}
+              inactiveText="Добавить в избранное"
+              activeText="Убрать из избранного"
+              inactiveIcon={<IsFavoritesIcon />}
+              activeIcon={<IsFavoritesFilledIcon />}
+              onClick={handleToggleFavorite}
+            />
+          </div>
+        </>
+      )}
+
+    </ModalComponent>
   );
 }
