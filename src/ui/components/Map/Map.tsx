@@ -89,7 +89,7 @@ export function Map({ data }: MapProps) {
       container: mapContainer.current!,
       style: mapTheme,
       center: [37.6173, 55.7558],
-      zoom: 10,
+      zoom: 9,
       attributionControl: false,
     });
 
