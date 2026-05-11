@@ -94,7 +94,7 @@ export function ParkingModal({
   const isActive = parkingData ? isFavorite(parkingData.id) : false;
 
   const occupiedString = parkingData
-    ? `${parkingData.occupied}/100`
+    ? `${parkingData.occupied}/${parkingData.all_spaces}`
     : '0/0';
 
   return (

@@ -88,8 +88,8 @@ export function Map({ data }: MapProps) {
     const map = new maplibregl.Map({
       container: mapContainer.current!,
       style: mapTheme,
-      center: [37.6173, 55.7558],
-      zoom: 9,
+      center: [37.71004, 55.779615],
+      zoom: 14,
       attributionControl: false,
     });
 

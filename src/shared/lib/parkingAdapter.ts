@@ -2,27 +2,35 @@ import type { FeatureCollection, Feature, Point } from 'geojson';
 import type { ParkingDTO, ParkingUIModel } from '@/shared/types/parking';
 
 export const mapDtoToModel = (dto: ParkingDTO): ParkingUIModel => {
+  // Вытаскиваем первую точку полигона: coordinates[0] - внешнее кольцо, [0] - первая точка
+  // В GeoJSON порядок ВСЕГДА [longitude, latitude]
+  const firstCoord = dto.coordinates.coordinates[0][0];
+  const lon = firstCoord[0];
+  const lat = firstCoord[1];
+
   return {
     id: dto.id,
     name_obj: dto.name_obj,
-    vid: dto.description || 'Парковка', // Берем описание как тип
+    vid: dto.description.split(',')[0] || 'Парковка', // Берем первое слово из описания как тип
     name: dto.name,
 
-    // Новые поля
+    // Новые поля из бэка
     adm_area: dto.adm_area,
     district: dto.district,
     occupied: dto.occupancy,
-    coordinates: [dto.coordinates.lon, dto.coordinates.lat],
+    all_spaces: dto.all_spaces,
 
-    // --- ЗАПОЛНЯЕМ СТАРЫЕ ПОЛЯ ---
-    name_ao: dto.adm_area, // Просто копируем значение
-    name_raion: dto.district, // Просто копируем значение
-    material_fence: null, // Данных нет, ставим null
-    commentary: dto.description, // Можно использовать описание как комментарий
+    // Передаем как [lon, lat] для MapLibre
+    coordinates: [lon, lat],
+
+    // Маппинг для старых полей (совместимость с Favorites и остальным UI)
+    name_ao: dto.adm_area,
+    name_raion: dto.district,
+    material_fence: null,
+    commentary: dto.description,
   };
 };
 
-// Функция для GeoJSON остается прежней
 export const mapToGeoJson = (
   parkings: ParkingUIModel[]
 ): FeatureCollection<Point, ParkingUIModel> => {
